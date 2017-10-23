@@ -3,11 +3,10 @@ package com.example.romanm.filmsclientv2.data.source.remote;
 
 import android.util.Log;
 
-import com.example.roma.filmsclient.data.source.DataSource;
-import com.example.roma.filmsclient.pojo.Movie;
-import com.example.roma.filmsclient.pojo.SessionId;
-import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
-import com.example.roma.filmsclient.retrofit.Server;
+import com.example.romanm.filmsclientv2.data.source.DataSource;
+import com.example.romanm.filmsclientv2.pojo.Movie;
+import com.example.romanm.filmsclientv2.pojo.SessionId;
+import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
@@ -15,7 +14,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.roma.filmsclient.utils.Const.URL_TMDb;
 
 public class RemoteSource implements DataSource {
 

@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 
 @Database(entities = {FilmDetail.class},version = 1)

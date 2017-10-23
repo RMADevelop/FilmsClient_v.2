@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
 

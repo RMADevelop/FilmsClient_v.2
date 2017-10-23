@@ -1,8 +1,10 @@
 package com.example.romanm.filmsclientv2.data.source;
 
-import com.example.roma.filmsclient.pojo.Movie;
-import com.example.roma.filmsclient.pojo.SessionId;
-import com.example.roma.filmsclient.pojo.filmDetail.FilmDetail;
+
+
+import com.example.romanm.filmsclientv2.pojo.Movie;
+import com.example.romanm.filmsclientv2.pojo.SessionId;
+import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;

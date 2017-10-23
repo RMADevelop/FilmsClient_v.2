@@ -3,7 +3,7 @@ package com.example.romanm.filmsclientv2.data.source.preference;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.roma.filmsclient.pojo.SessionId;
+import com.example.romanm.filmsclientv2.pojo.SessionId;
 
 
 public class SharedPref {
