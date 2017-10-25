@@ -11,7 +11,15 @@ public class ActivityUtils {
     public static void setFragment(FragmentManager fragmentManager, Fragment fragment, int idContainer) {
         fragmentManager
                 .beginTransaction()
-                .replace(idContainer,fragment)
+                .replace(idContainer, fragment)
+                .commit();
+    }
+
+    public static void setFragmentWithBackStack(FragmentManager fragmentManager, Fragment fragment, int idContainer) {
+        fragmentManager
+                .beginTransaction()
+                .replace(idContainer, fragment)
+                .addToBackStack("add")
                 .commit();
     }
 }
