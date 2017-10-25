@@ -10,13 +10,8 @@ import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 @Database(entities = {FilmDetail.class},version = 1)
 public abstract class LocalDataRoom  extends RoomDatabase{
-    public static LocalDataRoom INSTANCE;
 
     public abstract LocalRoomDAO getDAO();
 
-    public static LocalDataRoom getInstance(Context context){
-        if (INSTANCE == null)
-            INSTANCE = Room.databaseBuilder(context,LocalDataRoom.class,"database").build();
-        return INSTANCE;
-    }
+
 }

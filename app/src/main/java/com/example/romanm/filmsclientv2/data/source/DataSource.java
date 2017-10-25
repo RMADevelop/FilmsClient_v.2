@@ -12,8 +12,6 @@ import io.reactivex.Single;
 
 public interface DataSource {
 
-    void saveSessionId(SessionId sessionId);
-
     Single<Movie> loadMoviesNowPlaying();
 
     Single<Movie> loadPopular();

@@ -24,13 +24,7 @@ public class RemoteSource implements DataSource {
 
     private Retrofit retrofit;
 
-    private RemoteSource() {
-        retrofit = new Retrofit.Builder()
-                .baseUrl(URL_TMDb)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-    }
+
 
     public static RemoteSource getInstance() {
         if (INSTANCE == null) {
@@ -40,10 +34,6 @@ public class RemoteSource implements DataSource {
     }
 
 
-    @Override
-    public void saveSessionId(SessionId sessionId) {
-
-    }
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {

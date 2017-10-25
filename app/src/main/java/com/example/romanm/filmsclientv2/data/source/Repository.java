@@ -24,27 +24,16 @@ public class Repository implements DataSource {
 
     RemoteSource remote;
 
-    SharedPref sp;
 
     private static Repository INSTANCE;
 
-    private Repository(LocalSource local, RemoteSource remote, SharedPref sp) {
+    public Repository(LocalSource local, RemoteSource remote) {
         this.local = local;
         this.remote = remote;
-        this.sp = sp;
-    }
-
-    public static Repository getInstance(LocalSource local, RemoteSource remote, SharedPref sp) {
-        if (INSTANCE == null)
-            INSTANCE = new Repository(local, remote, sp);
-        return INSTANCE;
     }
 
 
-    @Override
-    public void saveSessionId(SessionId sessionId) {
-        sp.saveSessionId(sessionId);
-    }
+
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {

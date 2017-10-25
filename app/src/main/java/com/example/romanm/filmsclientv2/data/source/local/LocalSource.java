@@ -16,7 +16,7 @@ public class LocalSource implements DataSource {
     private static LocalSource INSTANCE;
     private LocalRoomDAO dao;
 
-    private LocalSource(LocalRoomDAO dao) {
+    public LocalSource(LocalRoomDAO dao) {
         this.dao = dao;
     }
 
@@ -27,10 +27,7 @@ public class LocalSource implements DataSource {
     }
 
 
-    @Override
-    public void saveSessionId(SessionId sessionId) {
 
-    }
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {
