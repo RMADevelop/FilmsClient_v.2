@@ -25,6 +25,7 @@ public class Request {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+
         return retrofit.create(Server.class)
                 .getTokenReauest(apiKey)
                 .doOnError(new Consumer<Throwable>() {

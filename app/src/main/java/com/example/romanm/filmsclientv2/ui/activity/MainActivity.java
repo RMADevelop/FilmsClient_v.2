@@ -1,14 +1,10 @@
 package com.example.romanm.filmsclientv2.ui.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,14 +12,15 @@ import android.view.MenuItem;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.mvp.presenters.PremiersPresenter;
+import com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.mvp.views.PremiersView;
+import com.example.romanm.filmsclientv2.ui.fragments.PremiersFragment;
+import com.example.romanm.filmsclientv2.utils.ActivityUtils;
 
 public class MainActivity extends MvpAppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PremiersView {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
-    @InjectPresenter
-    PremiersPresenter premiersPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +29,6 @@ public class MainActivity extends MvpAppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        premiersPresenter.testSave();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -42,6 +38,9 @@ public class MainActivity extends MvpAppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ActivityUtils.setFragment(getSupportFragmentManager(),new PremiersFragment(),R.id.container_main);
+
     }
 
 
@@ -52,11 +51,7 @@ public class MainActivity extends MvpAppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        premiersPresenter.checkDb();
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

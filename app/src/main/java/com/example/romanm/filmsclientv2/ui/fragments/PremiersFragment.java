@@ -1,8 +1,6 @@
 package com.example.romanm.filmsclientv2.ui.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,13 +10,18 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.mvp.presenters.PremiersPresenter;
+import com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.mvp.views.PremiersView;
+import com.example.romanm.filmsclientv2.pojo.Result;
+import com.example.romanm.filmsclientv2.ui.adapters.PremiersAdapterRV;
+
+import java.util.Collections;
+import java.util.List;
 
 public class PremiersFragment extends MvpAppCompatFragment implements PremiersView {
 
     @InjectPresenter
-    PremiersPresenter premiersPresenter;
+    PremiersPresenterImpl premiersPresenterImpl;
 
 
     public static final String ARG_TOP_RATED = "ARG_TOP_RATED";
@@ -27,10 +30,12 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     private static final String KEY_TYPE = "KEY_TYPE";
 
+    PremiersAdapterRV adapter;
 
     public PremiersFragment() {
         // Required empty public constructor
     }
+
 
     public static PremiersFragment getInstance(String type) {
         Bundle bundle = new Bundle();
@@ -51,9 +56,22 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        premiersPresenterImpl.getPremiersFilms();
+    }
+
     private void initRV(View view) {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        adapter = new PremiersAdapterRV(getContext(), Collections.<Result>emptyList());
+        rv.setAdapter(adapter);
+    }
+
+    @Override
+    public void showPopulars(List<Result> films) {
+        adapter.setMovies(films);
     }
 
 

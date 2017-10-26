@@ -21,20 +21,13 @@ import static com.example.romanm.filmsclientv2.utils.Const.URL_TMDb;
 
 public class RemoteSource implements DataSource {
 
-    private static RemoteSource INSTANCE;
 
     private Retrofit retrofit;
 
 
-
-    public static RemoteSource getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new RemoteSource();
-        }
-        return INSTANCE;
+    public RemoteSource(Retrofit retrofit) {
+        this.retrofit = retrofit;
     }
-
-
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {

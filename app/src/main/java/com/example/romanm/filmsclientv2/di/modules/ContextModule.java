@@ -1,5 +1,6 @@
 package com.example.romanm.filmsclientv2.di.modules;
 
+import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Singleton;
@@ -12,15 +13,15 @@ import dagger.Provides;
  */
 @Module
 public class ContextModule {
-    Context context;
+    Application application;
 
-    public ContextModule(Context context) {
-        this.context = context;
+    public ContextModule(Application application) {
+        this.application = application;
     }
 
     @Provides
     @Singleton
     public Context provideContext() {
-        return context;
+        return application.getApplicationContext();
     }
 }
