@@ -3,6 +3,7 @@ package com.example.romanm.filmsclientv2.data.source.remote;
 
 import android.util.Log;
 
+import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.data.source.DataSource;
 import com.example.romanm.filmsclientv2.pojo.Movie;
 import com.example.romanm.filmsclientv2.pojo.SessionId;
@@ -77,6 +78,16 @@ public class RemoteSource implements DataSource {
     @Override
     public void saveFilmInfo(FilmDetail film) {
 
+    }
+
+    @Override
+    public void saveItem(Item item) {
+
+    }
+
+    @Override
+    public Single<Item> checkDb() {
+        return null;
     }
 
 

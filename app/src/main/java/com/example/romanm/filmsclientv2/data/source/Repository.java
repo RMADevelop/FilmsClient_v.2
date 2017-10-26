@@ -2,11 +2,10 @@ package com.example.romanm.filmsclientv2.data.source;
 
 import android.util.Log;
 
+import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.data.source.local.LocalSource;
-import com.example.romanm.filmsclientv2.data.source.preference.SharedPref;
 import com.example.romanm.filmsclientv2.data.source.remote.RemoteSource;
 import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.SessionId;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
@@ -79,6 +78,16 @@ public class Repository implements DataSource {
     public void saveFilmInfo(FilmDetail film) {
         local.saveFilmInfo(film);
         Log.v("remoteLocal", "save film");
+    }
+
+    @Override
+    public void saveItem(Item item) {
+        local.saveItem(item);
+    }
+
+    @Override
+    public Single<Item> checkDb() {
+        return local.checkDb();
     }
 
 }

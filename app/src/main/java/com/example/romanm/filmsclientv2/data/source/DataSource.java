@@ -1,9 +1,8 @@
 package com.example.romanm.filmsclientv2.data.source;
 
 
-
+import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.SessionId;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
@@ -25,5 +24,10 @@ public interface DataSource {
     Single<Movie> loadRecommended(int id);
 
     void saveFilmInfo(FilmDetail film);
+
+
+    void saveItem(Item item);
+
+    Single<Item> checkDb();
 
 }

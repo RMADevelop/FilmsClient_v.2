@@ -9,5 +9,5 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Item {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    public int id;
 }

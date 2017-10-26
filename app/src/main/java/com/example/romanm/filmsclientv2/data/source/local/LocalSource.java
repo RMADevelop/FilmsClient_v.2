@@ -2,9 +2,9 @@ package com.example.romanm.filmsclientv2.data.source.local;
 
 import android.util.Log;
 
+import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.data.source.DataSource;
 import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.SessionId;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
@@ -19,15 +19,6 @@ public class LocalSource implements DataSource {
     public LocalSource(LocalRoomDAO dao) {
         this.dao = dao;
     }
-
-    public static LocalSource getInstance(LocalRoomDAO dao) {
-        if (INSTANCE == null)
-            INSTANCE = new LocalSource(dao);
-        return INSTANCE;
-    }
-
-
-
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {
@@ -65,6 +56,16 @@ public class LocalSource implements DataSource {
         dao.saveFilmDeatail(film);
         Log.v("remoteLocal", "save dao film");
 
+    }
+
+    @Override
+    public void saveItem(Item item) {
+        dao.saveItem(item);
+    }
+
+    @Override
+    public Single<Item> checkDb() {
+        return dao.checkDB();
     }
 
 
