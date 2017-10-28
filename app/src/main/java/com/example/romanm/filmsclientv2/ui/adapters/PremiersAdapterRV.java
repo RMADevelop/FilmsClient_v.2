@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.pojo.Result;
+import com.example.romanm.filmsclientv2.ui.fragments.PremiersFragment;
 import com.example.romanm.filmsclientv2.utils.Api;
 
 import java.util.ArrayList;
@@ -21,13 +22,16 @@ import java.util.List;
 
 
 public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.ViewHolderMainScreen> {
-    List<Result> movies = new ArrayList<>();
+    private List<Result> movies;
     private Context context;
 
+    private PremiersAdapterListener listener;
 
-    public PremiersAdapterRV( Context context,List<Result> movies) {
+
+    public PremiersAdapterRV(Context context, List<Result> movies, PremiersAdapterListener listener) {
         this.movies = movies;
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -66,7 +70,7 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    listener.onItemClick(movies.get(getAdapterPosition()).getId());
                 }
             });
         }
@@ -88,9 +92,14 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.Vi
     }
 
     public void setMovies(List<Result> movies) {
-        Log.v("itemMovie", "setMovie " + movies.size() + " "+ movies.get(0).getId());
+        Log.v("itemMovie", "setMovie " + movies.size() + " " + movies.get(0).getId());
 
         this.movies = movies;
         notifyDataSetChanged();
+    }
+
+
+    public interface PremiersAdapterListener{
+        void onItemClick(int idFilm);
     }
 }

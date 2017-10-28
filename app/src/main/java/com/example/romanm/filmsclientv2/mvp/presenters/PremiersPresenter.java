@@ -10,7 +10,7 @@ import io.reactivex.Single;
  * Created by RomanM on 26.10.2017.
  */
 
-public interface PremiersPresenter {
+public interface PremiersPresenter extends BasePresenter {
 
     void getPremiersFilms();
 

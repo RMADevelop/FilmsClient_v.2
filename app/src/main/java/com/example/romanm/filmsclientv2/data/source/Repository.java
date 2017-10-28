@@ -59,12 +59,7 @@ public class Repository implements DataSource {
         return Maybe.concat(
                 local.getFilmInfo(id),
                 remote.getFilmInfo(id)
-                        .doOnSuccess(new Consumer<FilmDetail>() {
-                            @Override
-                            public void accept(@NonNull FilmDetail filmDetail) throws Exception {
-                                saveFilmInfo(filmDetail);
-                            }
-                        })
+                        .doOnSuccess(this::saveFilmInfo)
         )
                 .firstElement();
     }

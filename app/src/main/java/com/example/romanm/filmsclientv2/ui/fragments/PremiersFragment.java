@@ -1,5 +1,6 @@
 package com.example.romanm.filmsclientv2.ui.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,10 +19,12 @@ import com.example.romanm.filmsclientv2.ui.adapters.PremiersAdapterRV;
 import java.util.Collections;
 import java.util.List;
 
-public class PremiersFragment extends MvpAppCompatFragment implements PremiersView {
+public class PremiersFragment extends MvpAppCompatFragment implements PremiersView, PremiersAdapterRV.PremiersAdapterListener {
 
     @InjectPresenter
     PremiersPresenterImpl premiersPresenterImpl;
+
+    PremiersFragmentListener listener;
 
 
     public static final String ARG_TOP_RATED = "ARG_TOP_RATED";
@@ -31,6 +34,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private static final String KEY_TYPE = "KEY_TYPE";
 
     PremiersAdapterRV adapter;
+
 
     public PremiersFragment() {
         // Required empty public constructor
@@ -65,7 +69,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private void initRV(View view) {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PremiersAdapterRV(getContext(), Collections.<Result>emptyList());
+        adapter = new PremiersAdapterRV(getContext(), Collections.<Result>emptyList(),this);
         rv.setAdapter(adapter);
     }
 
@@ -75,29 +79,38 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     }
 
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof PremiersContract.FragmentListener) {
-//            mListener = (PremiersContract.FragmentListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof PremiersFragmentListener) {
+            listener = (PremiersFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
 
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        presenter = null;
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onItemClick(int idFilm) {
+        listener.startActivity(idFilm);
+    }
+
+
+    public interface PremiersFragmentListener {
+        void startActivity(int idFilm);
+    }
 
 
 }

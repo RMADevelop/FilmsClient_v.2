@@ -18,8 +18,7 @@ import com.example.romanm.filmsclientv2.ui.fragments.PremiersFragment;
 import com.example.romanm.filmsclientv2.utils.ActivityUtils;
 
 public class MainActivity extends MvpAppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
-
+        implements NavigationView.OnNavigationItemSelectedListener, PremiersFragment.PremiersFragmentListener {
 
 
     @Override
@@ -39,7 +38,7 @@ public class MainActivity extends MvpAppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActivityUtils.setFragment(getSupportFragmentManager(),new PremiersFragment(),R.id.container_main);
+        ActivityUtils.setFragment(getSupportFragmentManager(), new PremiersFragment(), R.id.container_main);
 
     }
 
@@ -50,7 +49,6 @@ public class MainActivity extends MvpAppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
 
 
     @Override
@@ -78,5 +76,10 @@ public class MainActivity extends MvpAppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void startActivity(int idFilm) {
+        FilmInfoActivity.newIntent(this, idFilm);
     }
 }

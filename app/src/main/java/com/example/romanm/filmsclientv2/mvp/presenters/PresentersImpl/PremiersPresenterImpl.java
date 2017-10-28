@@ -61,12 +61,7 @@ public class PremiersPresenterImpl extends MvpPresenter<PremiersView> implements
     public void getPremiersFilms() {
         repository.loadPopular()
                 .subscribeOn(Schedulers.io())
-                .map(new Function<Movie, List<Result>>() {
-                    @Override
-                    public List<Result> apply(Movie movie) throws Exception {
-                        return movie.getResults();
-                    }
-                })
+                .map(Movie::getResults)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<Result>>() {
                     @Override
@@ -76,8 +71,18 @@ public class PremiersPresenterImpl extends MvpPresenter<PremiersView> implements
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
                     }
                 });
+    }
+
+    @Override
+    public void subscribe() {
+
+    }
+
+    @Override
+    public void unsubscribe() {
+
     }
 }
