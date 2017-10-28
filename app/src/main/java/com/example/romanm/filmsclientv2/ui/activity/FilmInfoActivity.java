@@ -2,6 +2,7 @@ package com.example.romanm.filmsclientv2.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,14 +17,18 @@ import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl.FilmInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.ui.adapters.ViewPagerAdapterFilmInfo;
+import com.example.romanm.filmsclientv2.ui.fragments.BaseInfoFragment;
 import com.example.romanm.filmsclientv2.utils.Api;
 
-public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoView {
+public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoView, BaseInfoFragment.BaseInfoFragmentListener {
 
     private static final String EXTRA_ID_FILM = "EXTRA_ID_FILM";
 
     @InjectPresenter
     FilmInfoPresenterImpl presenter;
+
+    private int idFilm;
 
     private ImageView imagePoster;
 
@@ -33,6 +38,8 @@ public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoVi
 
     private ViewPager viewPager;
 
+    private ViewPagerAdapterFilmInfo pagerAdapterFilmInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +48,19 @@ public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoVi
 
         initToolbar();
         initPoster();
-        initTabLayout();
 
-        initViewPager();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.getInt(EXTRA_ID_FILM) != -1) {
-                presenter.loadFilm(bundle.getInt(EXTRA_ID_FILM));
+                idFilm = bundle.getInt(EXTRA_ID_FILM);
+                presenter.loadFilm(idFilm);
             }
         }
+
+        initTabLayout();
+        initViewPager();
+
     }
 
     private void initToolbar() {
@@ -67,6 +77,10 @@ public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoVi
 
     private void initViewPager() {
         viewPager = (ViewPager) findViewById(R.id.view_pager_film_info);
+        pagerAdapterFilmInfo = new ViewPagerAdapterFilmInfo(getSupportFragmentManager(), idFilm);
+        viewPager.setAdapter(pagerAdapterFilmInfo);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -82,5 +96,10 @@ public class FilmInfoActivity extends MvpAppCompatActivity implements FilmInfoVi
         Intent intent = new Intent(context, FilmInfoActivity.class);
         intent.putExtra(EXTRA_ID_FILM, idFilm);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        
     }
 }

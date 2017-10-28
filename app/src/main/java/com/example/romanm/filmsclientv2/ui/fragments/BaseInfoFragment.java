@@ -3,19 +3,40 @@ package com.example.romanm.filmsclientv2.ui.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.R;
+import com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl.BaseInfoPresenterImpl;
+import com.example.romanm.filmsclientv2.mvp.views.BaseInfoView;
+import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.utils.Api;
 
 
-public class BaseInfoFragment extends Fragment {
+public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoView {
+
+    @InjectPresenter
+    BaseInfoPresenterImpl presenter;
 
 
     private static final String ARG_FILM_ID = "ARG_FILM_ID";
-    private OnFragmentInteractionListener mListener;
+
+    private BaseInfoFragmentListener listener;
+
+    private ImageView poster;
+
+    private TextView title;
+
+    private TextView description;
+
+    private TextView date;
 
 
     private int idFilm;
@@ -45,28 +66,56 @@ public class BaseInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_film_info_content, container, false);
+        initFields(view);
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.getFilmDetail(idFilm);
+    }
+
+    private void initFields(View view) {
+        poster = (ImageView) view.findViewById(R.id.image_poster_base_info);
+        title = (TextView) view.findViewById(R.id.text_title_base_info);
+        date = (TextView) view.findViewById(R.id.text_date_base_info);
+        description = (TextView) view.findViewById(R.id.text_description_base_info);
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof BaseInfoFragmentListener) {
+            listener = (BaseInfoFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement BaseInfoFragmentListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
-    public interface OnFragmentInteractionListener {
+    @Override
+    public void setInfo(FilmDetail filmDetail) {
+        Glide.with(getContext())
+                .load(Api.getPathPoster(filmDetail.getPosterPath()))
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(poster);
+
+        title.setText(filmDetail.getTitle());
+        description.setText(filmDetail.getOverview());
+        date.setText(filmDetail.getReleaseDate());
+    }
+
+    public interface BaseInfoFragmentListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

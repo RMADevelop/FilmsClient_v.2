@@ -86,7 +86,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
             listener = (PremiersFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement BaseInfoFragmentListener");
         }
     }
 
