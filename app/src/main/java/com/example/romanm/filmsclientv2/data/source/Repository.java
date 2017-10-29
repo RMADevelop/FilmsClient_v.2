@@ -6,6 +6,7 @@ import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.data.source.local.LocalSource;
 import com.example.romanm.filmsclientv2.data.source.remote.RemoteSource;
 import com.example.romanm.filmsclientv2.pojo.Movie;
+import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
@@ -67,6 +68,11 @@ public class Repository implements DataSource {
     @Override
     public Single<Movie> loadRecommended(int id) {
         return remote.loadRecommended(id);
+    }
+
+    @Override
+    public Single<ReviewsWrapper> loadReviews(int idFilm) {
+        return remote.loadReviews(idFilm);
     }
 
     @Override

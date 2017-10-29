@@ -1,11 +1,13 @@
 package com.example.romanm.filmsclientv2.data.source.remote;
 
 
+import android.app.Service;
 import android.util.Log;
 
 import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.data.source.DataSource;
 import com.example.romanm.filmsclientv2.pojo.Movie;
+import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.pojo.SessionId;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.retrofit.Server;
@@ -66,6 +68,12 @@ public class RemoteSource implements DataSource {
 
         return retrofit.create(Server.class)
                 .getRecommended(id);
+    }
+
+    @Override
+    public Single<ReviewsWrapper> loadReviews(int idFilm) {
+        return retrofit.create(Server.class)
+                .getReviews(idFilm);
     }
 
     @Override

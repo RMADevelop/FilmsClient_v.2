@@ -1,6 +1,7 @@
 package com.example.romanm.filmsclientv2.retrofit;
 
 import com.example.romanm.filmsclientv2.pojo.Movie;
+import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.pojo.SessionId;
 import com.example.romanm.filmsclientv2.pojo.TokenLoginPass;
 import com.example.romanm.filmsclientv2.pojo.TokenRequest;
@@ -50,6 +51,9 @@ public interface Server {
 
     @GET("movie/{movie_id}/recommendations?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
     Single<Movie> getRecommended(@Path("movie_id") int id);
+
+    @GET("movie/{movie_id}/reviews?api_key=" + API_v3)
+    Single<ReviewsWrapper> getReviews(@Path("movie_id") int idFilm);
 
 
 
