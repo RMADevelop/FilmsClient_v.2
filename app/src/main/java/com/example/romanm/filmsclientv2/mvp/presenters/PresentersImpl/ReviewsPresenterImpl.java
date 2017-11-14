@@ -2,18 +2,15 @@ package com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.example.romanm.filmsclientv2.App;
-import com.example.romanm.filmsclientv2.data.source.Repository;
+import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.mvp.presenters.ReviewsPresenter;
 import com.example.romanm.filmsclientv2.mvp.views.ReviewsView;
 import com.example.romanm.filmsclientv2.pojo.Reviews;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -31,7 +28,6 @@ public class ReviewsPresenterImpl extends MvpPresenter<ReviewsView> implements R
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public ReviewsPresenterImpl() {
-        App.getAppComponent().inject(this);
     }
 
     @Override

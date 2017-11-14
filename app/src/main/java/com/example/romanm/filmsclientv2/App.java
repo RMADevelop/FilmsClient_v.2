@@ -5,7 +5,6 @@ import android.app.Application;
 import com.example.romanm.filmsclientv2.di.component.AppComponent;
 import com.example.romanm.filmsclientv2.di.component.DaggerAppComponent;
 import com.example.romanm.filmsclientv2.di.modules.ContextModule;
-import com.example.romanm.filmsclientv2.di.modules.RemoteDataModule;
 
 import static com.example.romanm.filmsclientv2.utils.Const.URL_TMDb;
 

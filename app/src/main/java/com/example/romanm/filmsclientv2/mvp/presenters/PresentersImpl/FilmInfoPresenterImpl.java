@@ -3,7 +3,7 @@ package com.example.romanm.filmsclientv2.mvp.presenters.PresentersImpl;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.App;
-import com.example.romanm.filmsclientv2.data.source.Repository;
+import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.mvp.presenters.FilmInfoPresenter;
 import com.example.romanm.filmsclientv2.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;

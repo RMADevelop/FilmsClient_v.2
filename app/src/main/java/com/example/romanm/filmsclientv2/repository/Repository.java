@@ -1,38 +1,35 @@
-package com.example.romanm.filmsclientv2.data.source;
+package com.example.romanm.filmsclientv2.repository;
 
 import android.util.Log;
 
-import com.example.romanm.filmsclientv2.data.Item;
-import com.example.romanm.filmsclientv2.data.source.local.LocalSource;
-import com.example.romanm.filmsclientv2.data.source.remote.RemoteSource;
+import com.example.romanm.filmsclientv2.data.source.local.Local;
+import com.example.romanm.filmsclientv2.data.source.remote.Remote;
 import com.example.romanm.filmsclientv2.pojo.Movie;
 import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by Roma on 09.09.2017.
  */
-
+@Singleton
 public class Repository implements DataSource {
 
-    LocalSource local;
+    private final Local local;
 
-    RemoteSource remote;
+    private final Remote remote;
 
 
-    private static Repository INSTANCE;
-
-    public Repository(LocalSource local, RemoteSource remote) {
+    @Inject
+    public Repository(Local local, Remote remote) {
         this.local = local;
         this.remote = remote;
     }
-
-
 
 
     @Override
@@ -80,15 +77,4 @@ public class Repository implements DataSource {
         local.saveFilmInfo(film);
         Log.v("remoteLocal", "save film");
     }
-
-    @Override
-    public void saveItem(Item item) {
-        local.saveItem(item);
-    }
-
-    @Override
-    public Single<Item> checkDb() {
-        return local.checkDb();
-    }
-
 }

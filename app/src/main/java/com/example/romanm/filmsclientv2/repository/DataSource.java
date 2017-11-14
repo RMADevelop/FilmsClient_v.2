@@ -1,7 +1,6 @@
-package com.example.romanm.filmsclientv2.data.source;
+package com.example.romanm.filmsclientv2.repository;
 
 
-import com.example.romanm.filmsclientv2.data.Item;
 import com.example.romanm.filmsclientv2.pojo.Movie;
 import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
@@ -27,9 +26,5 @@ public interface DataSource {
     Single<ReviewsWrapper> loadReviews(int idFilm);
 
     void saveFilmInfo(FilmDetail film);
-
-    void saveItem(Item item);
-
-    Single<Item> checkDb();
 
 }

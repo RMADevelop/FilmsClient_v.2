@@ -5,7 +5,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.App;
-import com.example.romanm.filmsclientv2.data.source.Repository;
+import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.mvp.presenters.BaseInfoPresenter;
 import com.example.romanm.filmsclientv2.mvp.views.BaseInfoView;
 import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;

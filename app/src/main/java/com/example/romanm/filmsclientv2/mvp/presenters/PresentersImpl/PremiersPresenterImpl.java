@@ -5,8 +5,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.App;
-import com.example.romanm.filmsclientv2.data.Item;
-import com.example.romanm.filmsclientv2.data.source.Repository;
+import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.mvp.presenters.PremiersPresenter;
 import com.example.romanm.filmsclientv2.mvp.views.PremiersView;
 import com.example.romanm.filmsclientv2.pojo.Movie;
@@ -16,13 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
