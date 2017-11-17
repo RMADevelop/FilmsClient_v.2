@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.romanm.filmsclientv2.ui.activity.FilmInfoActivity">
+    tools:context=".presentation.ui.activity.FilmInfoActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_film_info"
