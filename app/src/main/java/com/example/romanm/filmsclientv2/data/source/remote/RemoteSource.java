@@ -1,8 +1,8 @@
 package com.example.romanm.filmsclientv2.data.source.remote;
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
@@ -16,7 +16,7 @@ public interface RemoteSource {
 
     Single<Movie> loadMoviesNowPlaying();
 
-    Single<Movie> loadPopular();
+    Single<Movie> loadPopular(int id);
 
     Single<Movie> loadTopRated();
 

@@ -1,9 +1,9 @@
 package com.example.romanm.filmsclientv2.data.source.remote;
 
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,8 +28,8 @@ public class Remote implements RemoteSource {
     }
 
     @Override
-    public Single<Movie> loadPopular() {
-        return server.getPopular();
+    public Single<Movie> loadPopular(int id) {
+        return server.getPopular(id);
     }
 
     @Override

@@ -13,41 +13,69 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.pojo.Result;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 import com.example.romanm.filmsclientv2.utils.Api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.ViewHolderMainScreen> {
-    private List<Result> movies;
+public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private final static int TYPE_ITEM = 0;
+    private final static int TYPE_FOOTER = 1;
+
+    private List<Result> list = new ArrayList<>();
     private Context context;
 
     private PremiersAdapterListener listener;
 
 
     public PremiersAdapterRV(Context context, List<Result> movies, PremiersAdapterListener listener) {
-        this.movies = movies;
         this.context = context;
         this.listener = listener;
     }
 
     @Override
-    public ViewHolderMainScreen onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_film_card_max, parent, false);
-
-        return new ViewHolderMainScreen(view);
+    public int getItemViewType(int position) {
+        if (position == getItemCount() - 1) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_ITEM;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolderMainScreen holder, int position) {
-        holder.bindTo(movies.get(position), holder);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view;
+        if (viewType == TYPE_ITEM) {
+            view = inflater.inflate(R.layout.item_film_card_max, parent, false);
+            return new ViewHolderMainScreen(view);
+        } else {
+            view = inflater.inflate(R.layout.item_footer, parent, false);
+            return new FooterViewHolder(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolderMainScreen) {
+            ViewHolderMainScreen holderMainScreen = (ViewHolderMainScreen) holder;
+            holderMainScreen.bindTo(list.get(position), holderMainScreen);
+        } else if (position == getItemCount() - 1 && getItemCount() > 1) {
+            listener.loadMore();
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        int itemCount = list.size();
+
+        //footer
+        itemCount++;
+
+        return itemCount;
     }
 
     public class ViewHolderMainScreen extends RecyclerView.ViewHolder {
@@ -68,14 +96,18 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(movies.get(getAdapterPosition()).getId());
+                    listener.onItemClick(list.get(getAdapterPosition()).getId());
                 }
             });
         }
 
         public void bindTo(Result item, ViewHolderMainScreen holder) {
             tittle.setText(item.getTitle());
-            description.setText(item.getOverview().subSequence(0, 75) + "...");
+            if (item.getOverview().length() > 74) {
+                description.setText(item.getOverview().subSequence(0, 75) + "...");
+            } else {
+                description.setText(item.getOverview());
+            }
             rating.setText(String.valueOf(item.getVoteAverage()));
             date.setText(item.getReleaseDate());
             Glide.with(context)
@@ -89,15 +121,24 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<PremiersAdapterRV.Vi
         }
     }
 
-    public void setMovies(List<Result> movies) {
-        Log.v("itemMovie", "setMovie " + movies.size() + " " + movies.get(0).getId());
+    static class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 
-        this.movies = movies;
-        notifyDataSetChanged();
+    public void setMovies(List<Result> movies) {
+        Log.v("itemMovies", list.size() + " setMovie " + movies.size() + " " + movies.get(0).getId());
+
+        list.addAll(movies);
+
+        notifyItemRangeChanged(list.size() - 20, list.size());
     }
 
 
-    public interface PremiersAdapterListener{
+    public interface PremiersAdapterListener {
         void onItemClick(int idFilm);
+
+        void loadMore();
     }
 }

@@ -78,13 +78,10 @@ public class MainActivity extends MvpAppCompatActivity
         return true;
     }
 
-    @Override
-    public void startActivity(int idFilm) {
-    }
 
     @Override
     public void startFilmInfo(int idFilm) {
-        ActivityUtils.setFragment(getSupportFragmentManager(), FilmDetailFragment.newInstance(idFilm), R.id.container_main);
+        ActivityUtils.setFragmentWithBackStack(getSupportFragmentManager(), FilmDetailFragment.newInstance(idFilm), R.id.container_main);
 
     }
 

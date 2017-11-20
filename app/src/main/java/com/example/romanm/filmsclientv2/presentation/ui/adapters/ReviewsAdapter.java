@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.romanm.filmsclientv2.pojo.Reviews;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Reviews;
 
 import java.util.List;
 

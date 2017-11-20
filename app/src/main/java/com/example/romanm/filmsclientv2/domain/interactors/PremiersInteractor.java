@@ -1,8 +1,6 @@
 package com.example.romanm.filmsclientv2.domain.interactors;
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-
-import javax.inject.Singleton;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
 
 import io.reactivex.Single;
 

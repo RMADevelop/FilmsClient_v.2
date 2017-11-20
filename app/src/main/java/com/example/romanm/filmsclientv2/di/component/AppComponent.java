@@ -3,8 +3,7 @@ package com.example.romanm.filmsclientv2.di.component;
 import com.example.romanm.filmsclientv2.di.modules.ContextModule;
 import com.example.romanm.filmsclientv2.di.modules.DataModule;
 import com.example.romanm.filmsclientv2.di.modules.filmDetail.FilmDetailModule;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.BaseInfoPresenterImpl;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.FilmInfoPresenterImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.FilmInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.PremiersFragment;
 

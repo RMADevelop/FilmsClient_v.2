@@ -14,10 +14,9 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.di.modules.filmDetail.FilmDetailModule;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
-import com.example.romanm.filmsclientv2.pojo.Result;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 import com.example.romanm.filmsclientv2.presentation.ui.adapters.PremiersAdapterRV;
 
 import java.util.Collections;
@@ -25,14 +24,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.Provides;
-
 import static android.content.ContentValues.TAG;
 
 public class PremiersFragment extends MvpAppCompatFragment implements PremiersView, PremiersAdapterRV.PremiersAdapterListener {
 
 
-@Inject
+    @Inject
     @InjectPresenter
     PremiersPresenterImpl presenter;
 
@@ -40,8 +37,6 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     PremiersPresenterImpl providePresenter() {
         return presenter;
     }
-
-
 
 
     PremiersFragmentListener listener;
@@ -87,7 +82,6 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     }
 
 
-
     private void initRV(View view) {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -129,11 +123,16 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     @Override
     public void onItemClick(int idFilm) {
         listener.startFilmInfo(idFilm);
+
+    }
+
+    @Override
+    public void loadMore() {
+        presenter.getPremiersFilms();
     }
 
 
     public interface PremiersFragmentListener {
-        void startActivity(int idFilm);
 
         void startFilmInfo(int idFilm);
     }

@@ -1,9 +1,9 @@
 package com.example.romanm.filmsclientv2.data.source.remote;
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.SessionId;
-import com.example.romanm.filmsclientv2.pojo.TokenLoginPass;
-import com.example.romanm.filmsclientv2.pojo.TokenRequest;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.SessionId;
+import com.example.romanm.filmsclientv2.data.source.remote.models.TokenLoginPass;
+import com.example.romanm.filmsclientv2.data.source.remote.models.TokenRequest;
 
 import io.reactivex.Single;
 import io.reactivex.annotations.NonNull;

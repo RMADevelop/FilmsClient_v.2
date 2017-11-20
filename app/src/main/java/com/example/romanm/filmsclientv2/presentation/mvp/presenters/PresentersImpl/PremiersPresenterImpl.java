@@ -4,14 +4,11 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.example.romanm.filmsclientv2.App;
-import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractor;
 import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractorImpl;
-import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.Result;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 
 import java.util.List;
 
@@ -64,13 +61,4 @@ public class PremiersPresenterImpl extends MvpPresenter<PremiersView> implements
                 });
     }
 
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-
-    }
 }

@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.BaseInfoPresenterImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.baseInfo.BaseInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.BaseInfoView;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.utils.Api;
 
 import javax.inject.Inject;
@@ -78,6 +78,7 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_film_info_content, container, false);
         initFields(view);
+        presenter.getFilmDetail(idFilm);
 
         return view;
     }
@@ -85,7 +86,6 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
     @Override
     public void onStart() {
         super.onStart();
-        presenter.getFilmDetail(idFilm);
     }
 
     private void initFields(View view) {

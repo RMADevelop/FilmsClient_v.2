@@ -1,11 +1,11 @@
 package com.example.romanm.filmsclientv2.data.source.remote;
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
-import com.example.romanm.filmsclientv2.pojo.SessionId;
-import com.example.romanm.filmsclientv2.pojo.TokenLoginPass;
-import com.example.romanm.filmsclientv2.pojo.TokenRequest;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
+import com.example.romanm.filmsclientv2.data.source.remote.models.SessionId;
+import com.example.romanm.filmsclientv2.data.source.remote.models.TokenLoginPass;
+import com.example.romanm.filmsclientv2.data.source.remote.models.TokenRequest;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
@@ -35,8 +35,8 @@ public interface Server {
     @GET("movie/now_playing?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
     Single<Movie> getMovie();
 
-    @GET("movie/popular?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
-    Single<Movie> getPopular();
+    @GET("movie/popular?api_key=0a94b53a493baafc9c1434714336e957&language=en-US")
+    Single<Movie> getPopular(@Query("page") int page);
 
     @GET("movie/top_rated?api_key=0a94b53a493baafc9c1434714336e957&language=en-US&page=1")
     Single<Movie> getTopRated();

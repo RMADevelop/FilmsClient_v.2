@@ -1,7 +1,7 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.views;
 
 import com.arellomobile.mvp.MvpView;
-import com.example.romanm.filmsclientv2.pojo.Reviews;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Reviews;
 
 import java.util.List;
 

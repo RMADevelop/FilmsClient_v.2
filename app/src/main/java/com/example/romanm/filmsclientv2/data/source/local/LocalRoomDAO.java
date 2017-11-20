@@ -4,19 +4,19 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 
 import io.reactivex.Maybe;
-import io.reactivex.Single;
 
 
 @Dao
 public interface LocalRoomDAO  {
 
     @Insert
-    void saveFilmDeatail(FilmDetail film);
+    void saveFilmDeatail(FilmDetailLocal film);
 
     @Query("SELECT * FROM FilmDetail WHERE id = :id")
-    Maybe<FilmDetail> getFilmInfo(int id);
+    Maybe<FilmDetailLocal> getFilmInfo(int id);
 }
 //

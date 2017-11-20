@@ -5,7 +5,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.ReviewsPresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.ReviewsView;
-import com.example.romanm.filmsclientv2.pojo.Reviews;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Reviews;
 
 import java.util.List;
 
@@ -28,16 +28,6 @@ public class ReviewsPresenterImpl extends MvpPresenter<ReviewsView> implements R
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public ReviewsPresenterImpl() {
-    }
-
-    @Override
-    public void subscribe() {
-
-    }
-
-    @Override
-    public void unsubscribe() {
-
     }
 
     @Override

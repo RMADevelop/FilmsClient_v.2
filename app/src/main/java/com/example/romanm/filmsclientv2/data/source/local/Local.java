@@ -2,9 +2,9 @@ package com.example.romanm.filmsclientv2.data.source.local;
 
 import android.util.Log;
 
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,7 +43,7 @@ public class Local implements LocalSource {
     }
 
     @Override
-    public Maybe<FilmDetail> getFilmInfo(int id) {
+    public Maybe<FilmDetailLocal> getFilmInfo(int id) {
         Log.v("remoteLocal", "getLocal");
         return dao.getFilmInfo(id);
     }
@@ -59,7 +59,7 @@ public class Local implements LocalSource {
     }
 
     @Override
-    public void saveFilmInfo(FilmDetail film) {
+    public void saveFilmInfo(FilmDetailLocal film) {
         dao.saveFilmDeatail(film);
         Log.v("remoteLocal", "save dao film");
 

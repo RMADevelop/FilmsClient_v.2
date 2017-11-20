@@ -3,16 +3,20 @@ package com.example.romanm.filmsclientv2.repository;
 import android.util.Log;
 
 import com.example.romanm.filmsclientv2.data.source.local.Local;
+import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
+import com.example.romanm.filmsclientv2.data.source.local.models.mapper.FilmDetailMapperData;
 import com.example.romanm.filmsclientv2.data.source.remote.Remote;
-import com.example.romanm.filmsclientv2.pojo.Movie;
-import com.example.romanm.filmsclientv2.pojo.ReviewsWrapper;
-import com.example.romanm.filmsclientv2.pojo.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.data.source.remote.mapper.FilmDetailMapperRemote;
+import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
+import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 
 /**
  * Created by Roma on 09.09.2017.
@@ -24,13 +28,17 @@ public class Repository implements DataSource {
 
     private final Remote remote;
 
+    private FilmDetailMapperRemote filmDetailMapperRemote;
 
-    @Inject
-    public Repository(Local local, Remote remote) {
+    private FilmDetailMapperData filmDetailMapperData;
+
+
+    public Repository(Local local, Remote remote, FilmDetailMapperRemote filmDetailMapperRemote, FilmDetailMapperData filmDetailMapperData) {
         this.local = local;
         this.remote = remote;
+        this.filmDetailMapperRemote = filmDetailMapperRemote;
+        this.filmDetailMapperData = filmDetailMapperData;
     }
-
 
     @Override
     public Single<Movie> loadMoviesNowPlaying() {
@@ -38,8 +46,8 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Single<Movie> loadPopular() {
-        return remote.loadPopular();
+    public Single<Movie> loadPopular(int page) {
+        return remote.loadPopular(page);
     }
 
     @Override
@@ -53,13 +61,15 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Maybe<FilmDetail> getFilmInfo(int id) {
+    public Maybe<FilmDetailDomain> getFilmInfo(int id) {
         return Maybe.concat(
                 local.getFilmInfo(id),
                 remote.getFilmInfo(id)
                         .doOnSuccess(this::saveFilmInfo)
+                .map(filmDetail -> filmDetailMapperRemote.transformToLocal(filmDetail))
         )
-                .firstElement();
+                .firstElement()
+                .map(filmDetailLocal -> filmDetailMapperData.transformToDomain(filmDetailLocal));
     }
 
     @Override
@@ -74,7 +84,7 @@ public class Repository implements DataSource {
 
     @Override
     public void saveFilmInfo(FilmDetail film) {
-        local.saveFilmInfo(film);
+        local.saveFilmInfo(filmDetailMapperRemote.transformToLocal(film));
         Log.v("remoteLocal", "save film");
     }
 }
