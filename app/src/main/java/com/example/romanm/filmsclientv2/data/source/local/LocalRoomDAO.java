@@ -16,7 +16,7 @@ public interface LocalRoomDAO  {
     @Insert
     void saveFilmDeatail(FilmDetailLocal film);
 
-    @Query("SELECT * FROM FilmDetail WHERE id = :id")
+    @Query("SELECT * FROM FilmDetailLocal WHERE id = :id")
     Maybe<FilmDetailLocal> getFilmInfo(int id);
 }
 //

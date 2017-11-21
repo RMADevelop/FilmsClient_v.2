@@ -5,6 +5,8 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.domain.interactors.filmDetail.FilmInfoInteractorImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmDetailMapperPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 
@@ -17,13 +19,17 @@ import io.reactivex.schedulers.Schedulers;
 @InjectViewState
 public class FilmInfoPresenterImpl extends MvpPresenter<FilmInfoView> implements FilmInfoPresenter {
 
-    FilmInfoInteractorImpl filmInfoInteractor;
+    private FilmInfoInteractorImpl filmInfoInteractor;
+
+    private FilmDetailMapperPresentation mapper;
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public FilmInfoPresenterImpl(FilmInfoInteractorImpl filmInfoInteractor) {
+    public FilmInfoPresenterImpl(FilmInfoInteractorImpl filmInfoInteractor, FilmDetailMapperPresentation mapper) {
         this.filmInfoInteractor = filmInfoInteractor;
+        this.mapper = mapper;
     }
+
 
     @Override
     protected void onFirstViewAttach() {
@@ -34,21 +40,21 @@ public class FilmInfoPresenterImpl extends MvpPresenter<FilmInfoView> implements
     @Override
     public void loadFilm(int idFilm) {
         Log.d("DSFDDSFDFS", "loadFilm() called with: idFilm = [" + idFilm + "]");
-        compositeDisposable.add(filmInfoInteractor.getFilmDetail(idFilm)
+        filmInfoInteractor.getFilmDetail(idFilm)
                 .toSingle()
-                .subscribeOn(Schedulers.io())
+                .map(mapper::transform)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<FilmDetail>() {
+                .subscribeWith(new DisposableSingleObserver<FilmDetailPresentation>() {
                     @Override
-                    public void onSuccess(FilmDetail filmDetail) {
-                        getViewState().setFilmInfo(filmDetail);
+                    public void onSuccess(FilmDetailPresentation filmDetailPresentation) {
+                        getViewState().setFilmInfo(filmDetailPresentation);
+                        getViewState().setItemViewPager(filmDetailPresentation);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
                     }
-                }));
+                });
     }
-
 }

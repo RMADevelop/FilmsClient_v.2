@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.FilmInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.presentation.ui.adapters.ViewPagerAdapterFilmInfo;
@@ -62,11 +63,20 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
 
     public static FilmDetailFragment newInstance(int idFilm) {
         FilmDetailFragment fragment = new FilmDetailFragment();
+        Log.d("dssdfsdfsfsdfsd", "newInstance() returned: " + fragment);
         Bundle args = new Bundle();
         args.putInt(ARG_ID_FILM, idFilm);
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("dssdfsdfsfsdfsd", "onStop() called");
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +95,7 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         initToolbar(view);
         initPoster(view);
 
-filmInfoPresenter.loadFilm(idFilm);
+        filmInfoPresenter.loadFilm(idFilm);
 //        Bundle bundle = getIntent().getExtras();
 //        if (bundle != null) {
 //            if (bundle.getInt(EXTRA_ID_FILM) != -1) {
@@ -113,10 +123,10 @@ filmInfoPresenter.loadFilm(idFilm);
 
     private void initViewPager(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager_film_info);
-        pagerAdapterFilmInfo = new ViewPagerAdapterFilmInfo(getChildFragmentManager(), idFilm);
-        viewPager.setAdapter(pagerAdapterFilmInfo);
-
-        tabLayout.setupWithViewPager(viewPager);
+//        pagerAdapterFilmInfo = new ViewPagerAdapterFilmInfo(getChildFragmentManager(), idFilm);
+//        viewPager.setAdapter(pagerAdapterFilmInfo);
+//
+//        tabLayout.setupWithViewPager(viewPager);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -141,14 +151,29 @@ filmInfoPresenter.loadFilm(idFilm);
     }
 
     @Override
-    public void setFilmInfo(FilmDetail film) {
-        Log.d("DSFDDSFDFS", "setFilmInfo() returned: " + film);
+    public void setFilmInfo(FilmDetailPresentation film) {
+        Log.d("sadfadfadfgafgagd", "setFilmInfo() returned: " + film);
         Glide.with(getContext())
                 .load(Api.getBackPoster(film.getBackdropPath()))
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(imagePoster);
     }
+
+    @Override
+    public void setItemViewPager(FilmDetailPresentation film) {
+        if (pagerAdapterFilmInfo != null) {
+            pagerAdapterFilmInfo.setFilm(film);
+        } else {
+            pagerAdapterFilmInfo = new ViewPagerAdapterFilmInfo(getChildFragmentManager(), film);
+            viewPager.setAdapter(pagerAdapterFilmInfo);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+        Log.d("dssdfsdfsfsdfsd", "setItemViewPager() returned: " + pagerAdapterFilmInfo);
+
+    }
+
+
 
 
     public interface OnFragmentInteractionListener {

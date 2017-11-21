@@ -12,6 +12,7 @@ import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Maybe;
@@ -32,7 +33,7 @@ public class Repository implements DataSource {
 
     private FilmDetailMapperData filmDetailMapperData;
 
-
+    @Inject
     public Repository(Local local, Remote remote, FilmDetailMapperRemote filmDetailMapperRemote, FilmDetailMapperData filmDetailMapperData) {
         this.local = local;
         this.remote = remote;
@@ -66,7 +67,7 @@ public class Repository implements DataSource {
                 local.getFilmInfo(id),
                 remote.getFilmInfo(id)
                         .doOnSuccess(this::saveFilmInfo)
-                .map(filmDetail -> filmDetailMapperRemote.transformToLocal(filmDetail))
+                        .map(filmDetail -> filmDetailMapperRemote.transformToLocal(filmDetail))
         )
                 .firstElement()
                 .map(filmDetailLocal -> filmDetailMapperData.transformToDomain(filmDetailLocal));

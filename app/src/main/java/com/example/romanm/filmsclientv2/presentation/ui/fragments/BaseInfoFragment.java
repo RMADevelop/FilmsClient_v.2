@@ -3,6 +3,7 @@ package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.baseInfo.BaseInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.BaseInfoView;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
@@ -36,7 +38,7 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
         return presenter;
     }
 
-    private static final String ARG_FILM_ID = "ARG_FILM_ID";
+    private static final String ARG_FILM = "ARG_FILM";
 
     private BaseInfoFragmentListener listener;
 
@@ -49,17 +51,17 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
     private TextView date;
 
 
-    private int idFilm;
+    private FilmDetailPresentation film;
 
     public BaseInfoFragment() {
         // Required empty public constructor
     }
 
 
-    public static BaseInfoFragment newInstance(int idFilm) {
+    public static BaseInfoFragment newInstance(FilmDetailPresentation filmDetailPresentation) {
         BaseInfoFragment fragment = new BaseInfoFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_FILM_ID, idFilm);
+        args.putParcelable(ARG_FILM, filmDetailPresentation);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,9 +70,9 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
     public void onCreate(Bundle savedInstanceState) {
         App.plusBaseInfoComponent().inject(this);
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            idFilm = getArguments().getInt(ARG_FILM_ID);
-        }
+            film = getArguments().getParcelable(ARG_FILM);
+        Log.d("testsfafad", "onCreate() called with: savedInstanceState = [" + film.getTitle() + "]");
+
     }
 
     @Override
@@ -78,15 +80,11 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_film_info_content, container, false);
         initFields(view);
-        presenter.getFilmDetail(idFilm);
-
+        setInfo(film);
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+
 
     private void initFields(View view) {
         poster = (ImageView) view.findViewById(R.id.image_poster_base_info);
@@ -114,16 +112,24 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
     }
 
     @Override
-    public void setInfo(FilmDetail filmDetail) {
+    public void setInfo(FilmDetailPresentation filmDetail) {
+        title.setText(filmDetail.getTitle());
+        description.setText(filmDetail.getOverview());
+        date.setText(filmDetail.getReleaseDate());
         Glide.with(getContext())
                 .load(Api.getPathPoster(filmDetail.getPosterPath()))
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(poster);
 
-        title.setText(filmDetail.getTitle());
-        description.setText(filmDetail.getOverview());
-        date.setText(filmDetail.getReleaseDate());
+
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        Log.d("dssdfsdfsfsdfsd", "dssdfsdfsfsdfsdonDestroy() called");
+        super.onDestroy();
     }
 
     public interface BaseInfoFragmentListener {

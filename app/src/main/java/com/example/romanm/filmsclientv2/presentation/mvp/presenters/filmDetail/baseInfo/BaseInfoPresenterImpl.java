@@ -22,26 +22,32 @@ public class BaseInfoPresenterImpl extends MvpPresenter<BaseInfoView> implements
 
     public BaseInfoPresenterImpl(FilmInfoInteractorImpl filmInfoInteractor) {
         this.filmInfoInteractor = filmInfoInteractor;
+        Log.d("dssdfsdfsfsdfsd", "BaseInfoPresenterImpl() called with: filmInfoInteractor = [" + this + "]");
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 
     @Override
     public void getFilmDetail(int idFilm) {
-        Log.v("filmId", "idFilm   " + idFilm);
-        filmInfoInteractor.getFilmDetail(idFilm)
-                .toSingle()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<FilmDetail>() {
-                    @Override
-                    public void onSuccess(FilmDetail filmDetail) {
-                        getViewState().setInfo(filmDetail);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-                });
+//        Log.v("filmId", "idFilm   " + idFilm);
+//        filmInfoInteractor.getFilmDetail(idFilm)
+//                .toSingle()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<FilmDetail>() {
+//                    @Override
+//                    public void onSuccess(FilmDetail filmDetail) {
+//                        getViewState().setInfo(filmDetail);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                    }
+//                });
     }
 }

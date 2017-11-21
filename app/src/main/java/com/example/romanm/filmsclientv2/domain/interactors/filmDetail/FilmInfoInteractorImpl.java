@@ -7,6 +7,7 @@ import com.example.romanm.filmsclientv2.repository.Repository;
 import javax.inject.Inject;
 
 import io.reactivex.Maybe;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by RomanM on 15.11.2017.
@@ -24,7 +25,8 @@ public class FilmInfoInteractorImpl implements FilmInfoInteractor {
 
     @Override
     public Maybe<FilmDetailDomain> getFilmDetail(int idFilm) {
-        return repository.getFilmInfo(idFilm);
+        return repository.getFilmInfo(idFilm)
+                .subscribeOn(Schedulers.io());
     }
 
 
