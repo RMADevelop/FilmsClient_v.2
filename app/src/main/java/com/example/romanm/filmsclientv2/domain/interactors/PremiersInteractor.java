@@ -1,6 +1,8 @@
 package com.example.romanm.filmsclientv2.domain.interactors;
 
-import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
+
+import java.util.List;
 
 import io.reactivex.Single;
 
@@ -9,5 +11,5 @@ import io.reactivex.Single;
  */
 
 public interface PremiersInteractor {
-    Single<Movie> loadPopular();
+    Single<List<FilmDomain>> loadPopular();
 }

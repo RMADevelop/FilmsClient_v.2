@@ -3,21 +3,23 @@ package com.example.romanm.filmsclientv2.repository;
 import android.util.Log;
 
 import com.example.romanm.filmsclientv2.data.source.local.Local;
-import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
 import com.example.romanm.filmsclientv2.data.source.local.models.mapper.FilmDetailMapperData;
 import com.example.romanm.filmsclientv2.data.source.remote.Remote;
 import com.example.romanm.filmsclientv2.data.source.remote.mapper.FilmDetailMapperRemote;
+import com.example.romanm.filmsclientv2.data.source.remote.mapper.FilmMapperRemote;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
 import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
+import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 
 /**
  * Created by Roma on 09.09.2017.
@@ -33,12 +35,15 @@ public class Repository implements DataSource {
 
     private FilmDetailMapperData filmDetailMapperData;
 
+    private FilmMapperRemote filmMapperRemote;
+
     @Inject
-    public Repository(Local local, Remote remote, FilmDetailMapperRemote filmDetailMapperRemote, FilmDetailMapperData filmDetailMapperData) {
+    public Repository(Local local, Remote remote, FilmDetailMapperRemote filmDetailMapperRemote, FilmDetailMapperData filmDetailMapperData, FilmMapperRemote filmMapperRemote) {
         this.local = local;
         this.remote = remote;
         this.filmDetailMapperRemote = filmDetailMapperRemote;
         this.filmDetailMapperData = filmDetailMapperData;
+        this.filmMapperRemote = filmMapperRemote;
     }
 
     @Override
@@ -47,8 +52,9 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Single<Movie> loadPopular(int page) {
-        return remote.loadPopular(page);
+    public Single<List<FilmDomain>> loadPopular(int page) {
+        return remote.loadPopular(page)
+                .map(movie -> filmMapperRemote.transform(movie.getResults()));
     }
 
     @Override

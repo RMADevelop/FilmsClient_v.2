@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.utils.Api;
 
 import java.util.ArrayList;
@@ -25,13 +26,13 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_FOOTER = 1;
 
-    private List<Result> list = new ArrayList<>();
+    private List<FilmPresentation> list = new ArrayList<>();
     private Context context;
 
     private PremiersAdapterListener listener;
 
 
-    public PremiersAdapterRV(Context context, List<Result> movies, PremiersAdapterListener listener) {
+    public PremiersAdapterRV(Context context, List<FilmPresentation> movies, PremiersAdapterListener listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -101,7 +102,7 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
             });
         }
 
-        public void bindTo(Result item, ViewHolderMainScreen holder) {
+        public void bindTo(FilmPresentation item, ViewHolderMainScreen holder) {
             tittle.setText(item.getTitle());
             if (item.getOverview().length() > 74) {
                 description.setText(item.getOverview().subSequence(0, 75) + "...");
@@ -127,7 +128,7 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void setMovies(List<Result> movies) {
+    public void setMovies(List<FilmPresentation> movies) {
         Log.v("itemMovies", list.size() + " setMovie " + movies.size() + " " + movies.get(0).getId());
 
         list.addAll(movies);

@@ -2,6 +2,7 @@ package com.example.romanm.filmsclientv2.presentation.mvp.views;
 
 import com.arellomobile.mvp.MvpView;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
 
 public interface PremiersView extends MvpView {
 
-    void showPopulars(List<Result> films);
+    void showPopulars(List<FilmPresentation> films);
 }

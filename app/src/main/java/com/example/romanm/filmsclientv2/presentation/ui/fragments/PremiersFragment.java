@@ -14,6 +14,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
@@ -85,12 +86,12 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private void initRV(View view) {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PremiersAdapterRV(getContext(), Collections.<Result>emptyList(), this);
+        adapter = new PremiersAdapterRV(getContext(), Collections.<FilmPresentation>emptyList(), this);
         rv.setAdapter(adapter);
     }
 
     @Override
-    public void showPopulars(List<Result> films) {
+    public void showPopulars(List<FilmPresentation> films) {
         Log.d(TAG, "showPopulars() returned: " + films);
 
         adapter.setMovies(films);

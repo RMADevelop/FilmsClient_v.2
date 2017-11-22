@@ -14,7 +14,6 @@ import dagger.Provides;
 @Module
 public class FilmDetailModule {
 
-    @DetailScope
     @Provides
     FilmInfoPresenterImpl provideFilmInfoPresenter(FilmInfoInteractorImpl filmInfoInteractor, FilmDetailMapperPresentation mapper) {
         return new FilmInfoPresenterImpl(filmInfoInteractor,mapper);

@@ -1,6 +1,5 @@
 package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.FilmInfoPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
@@ -60,7 +58,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         // Required empty public constructor
     }
 
-
     public static FilmDetailFragment newInstance(int idFilm) {
         FilmDetailFragment fragment = new FilmDetailFragment();
         Log.d("dssdfsdfsfsdfsd", "newInstance() returned: " + fragment);
@@ -69,14 +66,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("dssdfsdfsfsdfsd", "onStop() called");
-    }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,13 +85,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         initPoster(view);
 
         filmInfoPresenter.loadFilm(idFilm);
-//        Bundle bundle = getIntent().getExtras();
-//        if (bundle != null) {
-//            if (bundle.getInt(EXTRA_ID_FILM) != -1) {
-//                idFilm = bundle.getInt(EXTRA_ID_FILM);
-//                presenter.loadFilm(idFilm);
-//            }
-//        }
 
         initTabLayout(view);
         initViewPager(view);
@@ -129,9 +111,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
 //        tabLayout.setupWithViewPager(viewPager);
     }
 
-    public void onButtonPressed(Uri uri) {
-
-    }
 
 //    @Override
 //    public void onAttach(Context context) {
@@ -162,19 +141,14 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
 
     @Override
     public void setItemViewPager(FilmDetailPresentation film) {
-        if (pagerAdapterFilmInfo != null) {
-            pagerAdapterFilmInfo.setFilm(film);
-        } else {
+
             pagerAdapterFilmInfo = new ViewPagerAdapterFilmInfo(getChildFragmentManager(), film);
             viewPager.setAdapter(pagerAdapterFilmInfo);
             tabLayout.setupWithViewPager(viewPager);
-        }
-        Log.d("dssdfsdfsfsdfsd", "setItemViewPager() returned: " + pagerAdapterFilmInfo);
+
+        Log.d("dssdfsdfsfsdfsd", "setItemViewPager() returned: " + pagerAdapterFilmInfo + "  "  + filmInfoPresenter);
 
     }
-
-
-
 
     public interface OnFragmentInteractionListener {
 

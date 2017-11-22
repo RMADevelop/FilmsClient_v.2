@@ -39,8 +39,7 @@ public class FilmInfoPresenterImpl extends MvpPresenter<FilmInfoView> implements
 
     @Override
     public void loadFilm(int idFilm) {
-        Log.d("DSFDDSFDFS", "loadFilm() called with: idFilm = [" + idFilm + "]");
-        filmInfoInteractor.getFilmDetail(idFilm)
+        compositeDisposable.add(filmInfoInteractor.getFilmDetail(idFilm)
                 .toSingle()
                 .map(mapper::transform)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,6 +54,12 @@ public class FilmInfoPresenterImpl extends MvpPresenter<FilmInfoView> implements
                     public void onError(Throwable e) {
                         e.printStackTrace();
                     }
-                });
+                }));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        compositeDisposable.dispose();
     }
 }

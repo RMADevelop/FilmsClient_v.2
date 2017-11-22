@@ -5,6 +5,9 @@ import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
 import com.example.romanm.filmsclientv2.data.source.remote.models.ReviewsWrapper;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
+import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
+
+import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
@@ -14,7 +17,7 @@ public interface DataSource {
 
     Single<Movie> loadMoviesNowPlaying();
 
-    Single<Movie> loadPopular(int page);
+    Single<List<FilmDomain>> loadPopular(int page);
 
     Single<Movie> loadTopRated();
 

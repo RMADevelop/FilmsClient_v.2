@@ -14,6 +14,6 @@ import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresent
 public interface FilmInfoView extends MvpView {
     void setFilmInfo(FilmDetailPresentation film);
 
-    @StateStrategyType(SkipStrategy.class)
+//    @StateStrategyType(SkipStrategy.class)
     void setItemViewPager(FilmDetailPresentation film);
 }
