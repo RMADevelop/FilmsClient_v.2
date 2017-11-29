@@ -6,10 +6,9 @@ import com.example.romanm.filmsclientv2.di.component.AppComponent;
 import com.example.romanm.filmsclientv2.di.component.BaseInfoComponent;
 import com.example.romanm.filmsclientv2.di.component.DaggerAppComponent;
 import com.example.romanm.filmsclientv2.di.component.FilmInfoComponent;
+import com.example.romanm.filmsclientv2.di.component.SearchComponent;
 import com.example.romanm.filmsclientv2.di.modules.ContextModule;
 import com.example.romanm.filmsclientv2.di.modules.DataModule;
-import com.example.romanm.filmsclientv2.di.modules.filmDetail.BaseInfoModule;
-import com.example.romanm.filmsclientv2.di.modules.filmDetail.FilmDetailModule;
 
 import static com.example.romanm.filmsclientv2.utils.Const.URL_TMDb;
 
@@ -24,6 +23,8 @@ public class App extends Application {
     private static FilmInfoComponent filmInfoComponent;
 
     private static BaseInfoComponent baseInfoComponent;
+
+    private static SearchComponent searchComponent;
 
 
     @Override
@@ -44,7 +45,7 @@ public class App extends Application {
 
     public static FilmInfoComponent plusFilmInfoComponent() {
         if (filmInfoComponent == null) {
-            filmInfoComponent = appComponent.plusFilmInfoComponent(new FilmDetailModule());
+            filmInfoComponent = appComponent.plusFilmInfoComponent();
         }
 
         return filmInfoComponent;
@@ -52,18 +53,30 @@ public class App extends Application {
 
     public static BaseInfoComponent plusBaseInfoComponent() {
         if (baseInfoComponent == null) {
-            baseInfoComponent = filmInfoComponent.plusBaseInfoComponent(new BaseInfoModule());
+            baseInfoComponent = filmInfoComponent.plusBaseInfoComponent();
         }
 
         return baseInfoComponent;
     }
 
-    public static void clearFilmInfoComponent(){
+    public static SearchComponent plusSearchComponent() {
+        if (searchComponent == null) {
+            searchComponent = appComponent.plusSearchComponent();
+        }
+        return searchComponent;
+    }
+
+    public static void clearFilmInfoComponent() {
         filmInfoComponent = null;
     }
 
-    public static void clearBaseInfoComponent(){
+    public static void clearBaseInfoComponent() {
         baseInfoComponent = null;
     }
+
+    public static void clearSearchComponent() {
+        searchComponent = null;
+    }
+
 
 }

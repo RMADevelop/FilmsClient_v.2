@@ -1,5 +1,6 @@
 package com.example.romanm.filmsclientv2.presentation.ui.activity;
 
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,36 +10,39 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.BaseInfoFragment;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.FilmDetailFragment;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.PremiersFragment;
+import com.example.romanm.filmsclientv2.presentation.ui.fragments.SearchFragment;
 import com.example.romanm.filmsclientv2.utils.ActivityUtils;
 
 public class MainActivity extends MvpAppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PremiersFragment.PremiersFragmentListener,BaseInfoFragment.BaseInfoFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PremiersFragment.PremiersFragmentListener, BaseInfoFragment.BaseInfoFragmentListener {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
+        Toolbar toolbar;
+
+        Fragment fragment;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer ,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActivityUtils.setFragment(getSupportFragmentManager(), new PremiersFragment(), R.id.container_main);
+        ActivityUtils.setFragment(getSupportFragmentManager(), SearchFragment.newInstance(true), R.id.container_main);
 
     }
 

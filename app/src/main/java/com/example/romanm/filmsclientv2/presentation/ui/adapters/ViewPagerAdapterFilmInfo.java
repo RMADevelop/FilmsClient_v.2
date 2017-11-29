@@ -23,7 +23,7 @@ public class ViewPagerAdapterFilmInfo extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("testsfafad", "adapter " + film.getTitle() );
+        Log.d("testsfafad", "adapter " + film.getTitle());
         return BaseInfoFragment.newInstance(film);
     }
 
@@ -34,11 +34,20 @@ public class ViewPagerAdapterFilmInfo extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "SECTION";
+        switch (position) {
+            case 0:
+                return "Info";
+            case 1:
+                return "Actors";
+            case 2:
+                return "Reviews";
+            default:
+                return "Error";
+        }
     }
 
     public void setFilm(FilmDetailPresentation film) {
-        Log.d("testsfafad", "setFilmInfo " + film.getTitle() );
+        Log.d("testsfafad", "setFilmInfo " + film.getTitle());
 
         this.film = film;
     }

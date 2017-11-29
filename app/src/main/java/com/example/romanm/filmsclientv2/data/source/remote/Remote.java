@@ -43,6 +43,11 @@ public class Remote implements RemoteSource {
     }
 
     @Override
+    public Single<Movie> getSearchFilms(String query, int page) {
+        return server.getSearchFilms(query, page);
+    }
+
+    @Override
     public Maybe<FilmDetail> getFilmInfo(int id) {
         return server.getFilmInfo(id);
     }

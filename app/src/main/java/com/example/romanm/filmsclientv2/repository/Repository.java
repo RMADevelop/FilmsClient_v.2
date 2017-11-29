@@ -68,6 +68,11 @@ public class Repository implements DataSource {
     }
 
     @Override
+    public Single<Movie> getSearchFilms(String query, int page) {
+        return remote.getSearchFilms(query, page);
+    }
+
+    @Override
     public Maybe<FilmDetailDomain> getFilmInfo(int id) {
         return Maybe.concat(
                 local.getFilmInfo(id),

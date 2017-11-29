@@ -3,6 +3,8 @@ package com.example.romanm.filmsclientv2.domain.interactors;
 import com.example.romanm.filmsclientv2.domain.common.PaginationState;
 import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
 import com.example.romanm.filmsclientv2.repository.Repository;
+import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
+import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManagerImpl;
 
 import java.util.List;
 
@@ -18,22 +20,26 @@ import io.reactivex.schedulers.Schedulers;
 public class PremiersInteractorImpl implements PremiersInteractor {
 
 
-    private Repository repository;
+    private final Repository repository;
 
-    private PaginationState paginationState;
+    private final SchedulersManager schedulersManager;
+
+    private final PaginationState paginationState;
 
     @Inject
-    public PremiersInteractorImpl(Repository repository, PaginationState paginationState) {
+    public PremiersInteractorImpl(Repository repository, SchedulersManagerImpl schedulersManager, PaginationState paginationState) {
         this.repository = repository;
+        this.schedulersManager = schedulersManager;
         this.paginationState = paginationState;
     }
+
+
 
     @Override
     public Single<List<FilmDomain>> loadPopular() {
         return repository.loadPopular(paginationState.getPage())
                 .doOnSuccess(movie ->paginationState.nextPage())
-                .subscribeOn(Schedulers.io())
-        ;
+                .subscribeOn(schedulersManager.getIo());
     }
 
 

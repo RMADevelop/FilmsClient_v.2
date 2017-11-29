@@ -22,6 +22,8 @@ public interface RemoteSource {
 
     Single<Movie> loadUpcoming();
 
+    Single<Movie> getSearchFilms(String query, int page);
+
     Maybe<FilmDetail> getFilmInfo(int id);
 
     Single<Movie> loadRecommended(int id);

@@ -3,15 +3,9 @@ package com.example.romanm.filmsclientv2.di.modules;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.romanm.filmsclientv2.data.source.local.LocalDataRoom;
 import com.example.romanm.filmsclientv2.data.source.local.LocalRoomDAO;
 import com.example.romanm.filmsclientv2.data.source.remote.Server;
-import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractor;
-import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractorImpl;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenter;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
-import com.example.romanm.filmsclientv2.repository.Repository;
 
 import javax.inject.Singleton;
 

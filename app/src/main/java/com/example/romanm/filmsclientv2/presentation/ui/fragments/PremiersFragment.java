@@ -1,13 +1,19 @@
 package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -15,9 +21,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PresentersImpl.PremiersPresenterImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenterImpl;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
-import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 import com.example.romanm.filmsclientv2.presentation.ui.adapters.PremiersAdapterRV;
 
 import java.util.Collections;
@@ -49,8 +54,9 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     private static final String KEY_TYPE = "KEY_TYPE";
 
-    PremiersAdapterRV adapter;
+    private Toolbar toolbar;
 
+    PremiersAdapterRV adapter;
 
     public PremiersFragment() {
         // Required empty public constructor
@@ -77,9 +83,43 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_premiers, container, false);
 
-
+        initToolbar(view);
         initRV(view);
         return view;
+    }
+
+    private void initToolbar(View view) {
+        toolbar = view.findViewById(R.id.toolbar_premiers);
+        toolbar.inflateMenu(R.menu.main);
+
+
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) toolbar.getMenu().findItem(R.id.menu_search_film).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false);
+//
+//        MenuItem searchItem = menu.findItem(R.id.menu_search_film);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
+
+                Toast.makeText(getActivity(), "kk;", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
+
+                Toast.makeText(getActivity(), "qq;", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
+//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
     }
 
 
@@ -97,6 +137,42 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         adapter.setMovies(films);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.d("dfsdfsfsdfsd", "dsdddddddddddddddddddd() returned: ");
+
+        inflater.inflate(R.menu.main, menu);
+
+
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search_film).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false);
+//
+//        MenuItem searchItem = menu.findItem(R.id.menu_search_film);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
+
+                Toast.makeText(getActivity(), "kk;", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
+
+                Toast.makeText(getActivity(), "qq;", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
 
     @Override
     public void onAttach(Context context) {

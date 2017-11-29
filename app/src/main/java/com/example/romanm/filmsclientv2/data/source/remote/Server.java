@@ -56,6 +56,9 @@ public interface Server {
     Single<ReviewsWrapper> getReviews(@Path("movie_id") int idFilm);
 
 
+    @GET("movie?api_key=0a94b53a493baafc9c1434714336e957&language=en-US")
+    Single<Movie> getSearchFilms(@Query("query") String query,
+                                 @Query("page") int page);
 
     @GET("movie/{movie_id}?api_key=" + API_v3)
     Maybe<FilmDetail> getFilmInfo(@Path("movie_id") int idd);
