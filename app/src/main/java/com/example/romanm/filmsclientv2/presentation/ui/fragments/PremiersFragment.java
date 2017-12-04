@@ -1,27 +1,25 @@
 package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
+import com.example.romanm.filmsclientv2.di.ComponentManager;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenterImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
 import com.example.romanm.filmsclientv2.presentation.ui.adapters.PremiersAdapterRV;
 
@@ -37,10 +35,10 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     @Inject
     @InjectPresenter
-    PremiersPresenterImpl presenter;
+    PremiersPresenter presenter;
 
     @ProvidePresenter
-    PremiersPresenterImpl providePresenter() {
+    PremiersPresenter providePresenter() {
         return presenter;
     }
 
@@ -52,8 +50,6 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     public static final String ARG_POPULAR = "ARG_POPULAR";
     public static final String ARG_UPCOMMING = "ARG_UPCOMMING";
 
-    private static final String KEY_TYPE = "KEY_TYPE";
-
     private Toolbar toolbar;
 
     PremiersAdapterRV adapter;
@@ -63,9 +59,8 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     }
 
 
-    public static PremiersFragment getInstance(String type) {
+    public static PremiersFragment getInstance() {
         Bundle bundle = new Bundle();
-        bundle.putString(KEY_TYPE, type);
         PremiersFragment fragment = new PremiersFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -73,8 +68,10 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        App.getAppComponent().inject(this);
-
+        ComponentManager
+                .getInstance()
+                .getListComponent()
+                .inject(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -91,35 +88,12 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private void initToolbar(View view) {
         toolbar = view.findViewById(R.id.toolbar_premiers);
         toolbar.inflateMenu(R.menu.main);
+        MenuItem search = toolbar.getMenu().findItem(R.id.menu_search_film);
 
-
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) toolbar.getMenu().findItem(R.id.menu_search_film).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
-//
-//        MenuItem searchItem = menu.findItem(R.id.menu_search_film);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
-
-                Toast.makeText(getActivity(), "kk;", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
-
-                Toast.makeText(getActivity(), "qq;", Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
+        search.setOnMenuItemClickListener(menuItem -> {
+            listener.startSearch();
+            return true;
         });
-//        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
     }
 
 
@@ -139,39 +113,9 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("dfsdfsfsdfsd", "dsdddddddddddddddddddd() returned: ");
-
         inflater.inflate(R.menu.main, menu);
 
-
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search_film).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setIconifiedByDefault(false);
-//
-//        MenuItem searchItem = menu.findItem(R.id.menu_search_film);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
-
-                Toast.makeText(getActivity(), "kk;", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d("dfsdfsfsdfsd", "showPopulars() returned: ");
-
-                Toast.makeText(getActivity(), "qq;", Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-        });
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -188,19 +132,21 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     @Override
     public void onDetach() {
-        super.onDetach();
         listener = null;
+        super.onDetach();
     }
 
     @Override
     public void onDestroy() {
+        ComponentManager
+                .getInstance()
+                .clearListComponent();
         super.onDestroy();
     }
 
     @Override
     public void onItemClick(int idFilm) {
         listener.startFilmInfo(idFilm);
-
     }
 
     @Override
@@ -212,6 +158,9 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     public interface PremiersFragmentListener {
 
         void startFilmInfo(int idFilm);
+
+        void startSearch();
+
     }
 
 

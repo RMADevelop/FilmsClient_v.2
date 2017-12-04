@@ -18,9 +18,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.baseInfo.BaseInfoPresenterImpl;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.baseInfo.BaseInfoPresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.BaseInfoView;
-import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.utils.Api;
 
 import javax.inject.Inject;
@@ -31,10 +30,10 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
 
     @Inject
     @InjectPresenter
-    BaseInfoPresenterImpl presenter;
+    BaseInfoPresenter presenter;
 
     @ProvidePresenter
-    BaseInfoPresenterImpl providePresenter() {
+    BaseInfoPresenter providePresenter() {
         return presenter;
     }
 
@@ -68,10 +67,8 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        App.plusBaseInfoComponent().inject(this);
         super.onCreate(savedInstanceState);
             film = getArguments().getParcelable(ARG_FILM);
-        Log.d("testsfafad", "onCreate() called with: savedInstanceState = [" + film.getTitle() + "]");
 
     }
 
@@ -123,13 +120,6 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
                 .into(poster);
 
 
-    }
-
-    @Override
-    public void onDestroy() {
-        presenter.onDestroy();
-        Log.d("dssdfsdfsfsdfsd", "dssdfsdfsfsdfsdonDestroy() called");
-        super.onDestroy();
     }
 
     public interface BaseInfoFragmentListener {

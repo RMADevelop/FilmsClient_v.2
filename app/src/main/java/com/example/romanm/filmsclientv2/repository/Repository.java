@@ -20,6 +20,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 
 /**
  * Created by Roma on 09.09.2017.
@@ -68,8 +69,9 @@ public class Repository implements DataSource {
     }
 
     @Override
-    public Single<Movie> getSearchFilms(String query, int page) {
-        return remote.getSearchFilms(query, page);
+    public Single<List<FilmDomain>> getSearchFilms(String query, int page) {
+        return remote.getSearchFilms(query, page)
+                .map(movie -> filmMapperRemote.transform(movie.getResults()));
     }
 
     @Override

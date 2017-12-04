@@ -23,7 +23,7 @@ public interface DataSource {
 
     Single<Movie> loadUpcoming();
 
-    Single<Movie> getSearchFilms(String query, int page);
+    Single<List<FilmDomain>> getSearchFilms(String query, int page);
 
     Maybe<FilmDetailDomain> getFilmInfo(int id);
 

@@ -1,6 +1,8 @@
 package com.example.romanm.filmsclientv2.domain.interactors.search;
 
-import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
+import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
+
+import java.util.List;
 
 import io.reactivex.Single;
 
@@ -10,6 +12,6 @@ import io.reactivex.Single;
 
 public interface SearchInteractor {
 
-    Single<Movie> getSearchFilms(String query, int page);
+    Single<List<FilmDomain>> getSearchFilms(String query, int page);
 
 }

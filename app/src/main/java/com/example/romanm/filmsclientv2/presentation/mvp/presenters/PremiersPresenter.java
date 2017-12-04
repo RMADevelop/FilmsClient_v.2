@@ -1,17 +1,13 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractor;
-import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractorImpl;
-import com.example.romanm.filmsclientv2.domain.interactors.search.SearchInteractor;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmMapperPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
-import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManagerImpl;
+import com.example.romanm.filmsclientv2.utils.Schedulers.AppSchedulers;
 
 import java.util.List;
 
@@ -20,13 +16,12 @@ import javax.inject.Inject;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by RomanM on 25.10.2017.
  */
+
 @InjectViewState
-public class PremiersPresenterImpl extends MvpPresenter<PremiersView>{
+public class PremiersPresenter extends MvpPresenter<PremiersView>{
 
     private PremiersInteractor premiersInteractor;
 
@@ -38,8 +33,7 @@ public class PremiersPresenterImpl extends MvpPresenter<PremiersView>{
 
 
     @Inject
-
-    public PremiersPresenterImpl(PremiersInteractorImpl premiersInteractor, FilmMapperPresentation mapper, SchedulersManagerImpl schedulersManager) {
+    public PremiersPresenter(PremiersInteractor premiersInteractor, FilmMapperPresentation mapper, SchedulersManager schedulersManager) {
         this.premiersInteractor = premiersInteractor;
         this.mapper = mapper;
         this.schedulersManager = schedulersManager;

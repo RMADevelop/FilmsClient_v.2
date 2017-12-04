@@ -21,7 +21,7 @@ import com.example.romanm.filmsclientv2.presentation.ui.fragments.SearchFragment
 import com.example.romanm.filmsclientv2.utils.ActivityUtils;
 
 public class MainActivity extends MvpAppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PremiersFragment.PremiersFragmentListener, BaseInfoFragment.BaseInfoFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener, PremiersFragment.PremiersFragmentListener, BaseInfoFragment.BaseInfoFragmentListener,SearchFragment.SearchFragmentListener {
 
 
     @Override
@@ -35,14 +35,14 @@ public class MainActivity extends MvpAppCompatActivity
         Fragment fragment;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer ,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActivityUtils.setFragment(getSupportFragmentManager(), SearchFragment.newInstance(true), R.id.container_main);
+        ActivityUtils.setFragment(getSupportFragmentManager(), PremiersFragment.getInstance(), R.id.container_main);
 
     }
 
@@ -63,9 +63,7 @@ public class MainActivity extends MvpAppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -90,7 +88,17 @@ public class MainActivity extends MvpAppCompatActivity
     }
 
     @Override
+    public void startSearch() {
+        ActivityUtils.setFragmentWithBackStack(getSupportFragmentManager(), SearchFragment.newInstance(false), R.id.container_main);
+    }
+
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void itemClick(int idFilm) {
+        ActivityUtils.setFragmentWithBackStack(getSupportFragmentManager(), FilmDetailFragment.newInstance(idFilm), R.id.container_main);
     }
 }

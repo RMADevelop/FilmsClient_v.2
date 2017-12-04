@@ -1,12 +1,18 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Movie;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
-import com.example.romanm.filmsclientv2.domain.interactors.search.SeaerchInteractorImpl;
+import com.example.romanm.filmsclientv2.di.scopes.SearchScope;
+import com.example.romanm.filmsclientv2.domain.interactors.search.SearchInteractorImpl;
 import com.example.romanm.filmsclientv2.domain.interactors.search.SearchInteractor;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
+import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmMapperPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.SearchView;
+import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -14,38 +20,49 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 
 /**
  * Created by RomanM on 27.11.2017.
  */
+@SearchScope
 @InjectViewState
 public class SearchPresenter extends MvpPresenter<SearchView> {
 
     private final SearchInteractor searchInteractor;
 
-    private Observable<String> searchObserver;
+    private final FilmMapperPresentation mapper;
+
+    private final SchedulersManager schedulers;
+    
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
 
     @Inject
-    public SearchPresenter(SeaerchInteractorImpl searchInteractor) {
+    public SearchPresenter(SearchInteractor searchInteractor, FilmMapperPresentation mapper, SchedulersManager schedulers) {
         this.searchInteractor = searchInteractor;
+        this.mapper = mapper;
+        this.schedulers = schedulers;
     }
 
 
-    public void registerSearchObserver(Observable<String> searchObserver) {
-        this.searchObserver = searchObserver;
 
-        searchObserver
-                .debounce(500, TimeUnit.MILLISECONDS)
+
+    public void registerSearchObserver(Observable<String> searchObserver) {
+
+        compositeDisposable.add(searchObserver
+                .debounce(300, TimeUnit.MILLISECONDS)
 
                 .filter(s -> !s.isEmpty())
                 .distinctUntilChanged()
                 .switchMapSingle(s -> searchInteractor.getSearchFilms(s, 1))
-                .map(Movie::getResults)
-                .subscribeWith(new DisposableObserver<List<Result>>() {
+                .map(mapper::transform)
+                .observeOn(schedulers.getMainThread())
+                .subscribeWith(new DisposableObserver<List<FilmPresentation>>() {
                     @Override
-                    public void onNext(List<Result> list) {
-
+                    public void onNext(List<FilmPresentation> filmPresentations) {
+                        getViewState().setFilms(filmPresentations);
                     }
 
                     @Override
@@ -57,6 +74,11 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
                     public void onComplete() {
 
                     }
-                });
+                }));
+
+    }
+
+    public void unRegister(){
+        compositeDisposable.dispose();
     }
 }

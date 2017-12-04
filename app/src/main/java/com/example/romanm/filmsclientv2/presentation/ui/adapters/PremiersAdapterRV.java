@@ -129,11 +129,16 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setMovies(List<FilmPresentation> movies) {
-        Log.v("itemMovies", list.size() + " setMovie " + movies.size() + " " + movies.get(0).getId());
 
         list.addAll(movies);
 
         notifyItemRangeChanged(list.size() - 20, list.size());
+    }
+
+    public void setSearchMovies(List<FilmPresentation> movies) {
+        list.clear();
+        list.addAll(movies);
+        notifyDataSetChanged();
     }
 
 

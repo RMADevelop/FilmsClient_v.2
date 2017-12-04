@@ -11,11 +11,11 @@ import io.reactivex.schedulers.Schedulers;
  * Created by RomanM on 23.11.2017.
  */
 @Singleton
-public class SchedulersManagerImpl implements SchedulersManager {
+public class AppSchedulers implements SchedulersManager {
 
 
     @Inject
-    public SchedulersManagerImpl() {
+    public AppSchedulers() {
     }
 
     @Override

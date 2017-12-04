@@ -1,5 +1,6 @@
 package com.example.romanm.filmsclientv2.di.component;
 
+import com.example.romanm.filmsclientv2.di.modules.FilmDetailModule;
 import com.example.romanm.filmsclientv2.di.scopes.FilmInfoScope;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.FilmDetailFragment;
 
@@ -10,7 +11,7 @@ import dagger.Subcomponent;
  */
 
 @FilmInfoScope
-@Subcomponent
+@Subcomponent(modules = FilmDetailModule.class)
 public interface FilmInfoComponent {
 
     void inject(FilmDetailFragment filmDetailFragment);
