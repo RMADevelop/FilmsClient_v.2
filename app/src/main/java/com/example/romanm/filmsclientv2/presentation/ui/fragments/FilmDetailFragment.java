@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.romanm.filmsclientv2.App;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.di.ComponentManager;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
@@ -28,9 +26,6 @@ import javax.inject.Inject;
 
 
 public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfoView {
-
-
-    private OnFragmentInteractionListener mListener;
 
     @Inject
     @InjectPresenter
@@ -61,7 +56,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
 
     public static FilmDetailFragment newInstance(int idFilm) {
         FilmDetailFragment fragment = new FilmDetailFragment();
-        Log.d("dssdfsdfsfsdfsd", "newInstance() returned: " + fragment);
         Bundle args = new Bundle();
         args.putInt(ARG_ID_FILM, idFilm);
         fragment.setArguments(args);
@@ -111,32 +105,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         viewPager = (ViewPager) view.findViewById(R.id.view_pager_film_info);
     }
 
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    @Override
-    public void onDestroy() {
-        ComponentManager
-                .getInstance()
-                .clearFilmInfoComponent();
-        super.onDestroy();
-    }
-
     @Override
     public void setFilmInfo(FilmDetailPresentation film) {
         Glide.with(getContext())
@@ -154,10 +122,4 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         tabLayout.setupWithViewPager(viewPager);
 
     }
-
-    public interface OnFragmentInteractionListener {
-
-    }
-
-
 }

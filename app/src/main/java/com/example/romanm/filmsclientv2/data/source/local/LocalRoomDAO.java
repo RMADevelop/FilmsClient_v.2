@@ -19,4 +19,3 @@ public interface LocalRoomDAO  {
     @Query("SELECT * FROM FilmDetailLocal WHERE id = :id")
     Maybe<FilmDetailLocal> getFilmInfo(int id);
 }
-//

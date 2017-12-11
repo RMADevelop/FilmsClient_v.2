@@ -13,20 +13,9 @@ import io.reactivex.Single;
  */
 
 public interface LocalSource {
-    public Single<Movie> loadMoviesNowPlaying();
 
-    public Single<Movie> loadPopular();
+    Maybe<FilmDetailLocal> getFilmInfo(int id);
 
-    public Single<Movie> loadTopRated();
-
-    public Single<Movie> loadUpcoming();
-
-    public Maybe<FilmDetailLocal> getFilmInfo(int id);
-
-    public Single<Movie> loadRecommended(int id);
-
-    public Single<ReviewsWrapper> loadReviews(int idFilm);
-
-    public void saveFilmInfo(FilmDetailLocal film);
+    void saveFilmInfo(FilmDetailLocal film);
 
 }

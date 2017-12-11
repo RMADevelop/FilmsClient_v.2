@@ -42,13 +42,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         return presenter;
     }
 
-
     PremiersFragmentListener listener;
-
-
-    public static final String ARG_TOP_RATED = "ARG_TOP_RATED";
-    public static final String ARG_POPULAR = "ARG_POPULAR";
-    public static final String ARG_UPCOMMING = "ARG_UPCOMMING";
 
     private Toolbar toolbar;
 
@@ -70,7 +64,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     public void onCreate(Bundle savedInstanceState) {
         ComponentManager
                 .getInstance()
-                .getListComponent()
+                .createListComponent()
                 .inject(this);
         super.onCreate(savedInstanceState);
     }
@@ -85,31 +79,6 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         return view;
     }
 
-    private void initToolbar(View view) {
-        toolbar = view.findViewById(R.id.toolbar_premiers);
-        toolbar.inflateMenu(R.menu.main);
-        MenuItem search = toolbar.getMenu().findItem(R.id.menu_search_film);
-
-        search.setOnMenuItemClickListener(menuItem -> {
-            listener.startSearch();
-            return true;
-        });
-    }
-
-
-    private void initRV(View view) {
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
-        rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PremiersAdapterRV(getContext(), Collections.<FilmPresentation>emptyList(), this);
-        rv.setAdapter(adapter);
-    }
-
-    @Override
-    public void showPopulars(List<FilmPresentation> films) {
-        Log.d(TAG, "showPopulars() returned: " + films);
-
-        adapter.setMovies(films);
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -136,12 +105,31 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         super.onDetach();
     }
 
+
+    private void initToolbar(View view) {
+        toolbar = view.findViewById(R.id.toolbar_premiers);
+        toolbar.inflateMenu(R.menu.main);
+        MenuItem search = toolbar.getMenu().findItem(R.id.menu_search_film);
+
+        search.setOnMenuItemClickListener(menuItem -> {
+            listener.startSearch();
+            return true;
+        });
+    }
+
+
+    private void initRV(View view) {
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
+        rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        adapter = new PremiersAdapterRV(getContext(), Collections.<FilmPresentation>emptyList(), this);
+        rv.setAdapter(adapter);
+    }
+
     @Override
-    public void onDestroy() {
-        ComponentManager
-                .getInstance()
-                .clearListComponent();
-        super.onDestroy();
+    public void showPopulars(List<FilmPresentation> films) {
+        Log.d(TAG, "showPopulars() returned: " + films);
+
+        adapter.setMovies(films);
     }
 
     @Override

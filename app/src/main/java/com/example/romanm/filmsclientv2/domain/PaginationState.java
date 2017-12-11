@@ -1,4 +1,4 @@
-package com.example.romanm.filmsclientv2.domain.common;
+package com.example.romanm.filmsclientv2.domain;
 
 import javax.inject.Inject;
 

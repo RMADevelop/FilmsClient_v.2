@@ -1,10 +1,9 @@
 package com.example.romanm.filmsclientv2.domain.interactors;
 
-import com.example.romanm.filmsclientv2.domain.common.PaginationState;
+import com.example.romanm.filmsclientv2.domain.PaginationState;
 import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
 import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
-import com.example.romanm.filmsclientv2.utils.Schedulers.AppSchedulers;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class PremiersInteractorImpl implements PremiersInteractor {
     private final SchedulersManager schedulersManager;
 
     private final PaginationState paginationState;
-
+    
     @Inject
     public PremiersInteractorImpl(Repository repository, SchedulersManager schedulersManager, PaginationState paginationState) {
         this.repository = repository;

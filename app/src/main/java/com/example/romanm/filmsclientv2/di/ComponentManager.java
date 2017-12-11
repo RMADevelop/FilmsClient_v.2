@@ -22,9 +22,6 @@ public class ComponentManager {
     private static ComponentManager instance;
 
     private AppComponent appComponent;
-    private FilmInfoComponent filmInfoComponent;
-    private ListComponent listComponent;
-    private SearchComponent searchComponent;
 
     public static ComponentManager getInstance() {
         if (instance == null) {
@@ -48,39 +45,16 @@ public class ComponentManager {
     }
 
     public FilmInfoComponent getFilmInfoComponent() {
-        if (filmInfoComponent == null) {
-            filmInfoComponent = getAppComponent()
-                    .plusFilmInfoComponent();
-        }
-        return filmInfoComponent;
+        return appComponent.plusFilmInfoComponent();
     }
 
-    public void clearFilmInfoComponent() {
-        filmInfoComponent = null;
+    public ListComponent createListComponent() {
+
+        return appComponent.plusListComponent();
     }
 
-    public ListComponent getListComponent() {
-        if (listComponent == null) {
-            listComponent = getAppComponent()
-                    .plusListComponent();
-        }
+    public SearchComponent createSearchComponent() {
 
-        return listComponent;
-    }
-
-    public void clearListComponent() {
-        listComponent = null;
-    }
-
-    public SearchComponent getSearchComponent() {
-        if (searchComponent == null) {
-            searchComponent = getAppComponent()
-                    .plusSearchComponent();
-        }
-        return searchComponent;
-    }
-
-    public void clearSearchComponent() {
-        searchComponent = null;
+        return appComponent.plusSearchComponent();
     }
 }

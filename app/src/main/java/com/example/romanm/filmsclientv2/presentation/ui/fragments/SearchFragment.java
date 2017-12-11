@@ -1,13 +1,11 @@
 package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +27,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 
 
@@ -41,6 +38,14 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     private boolean isAnim;
 
     private SearchFragmentListener listener;
+    private RecyclerView searchRecyclerView;
+    private PremiersAdapterRV adapterRV;
+
+    private ImageView back;
+    private ImageView clear;
+    private EditText searchEditText;
+
+    private BehaviorSubject<String> searchObserver = BehaviorSubject.create();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -52,15 +57,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         fragment.setArguments(args);
         return fragment;
     }
-
-    private RecyclerView searchRecyclerView;
-    private PremiersAdapterRV adapterRV;
-
-    private ImageView back;
-    private ImageView clear;
-    private EditText searchEditText;
-
-    private BehaviorSubject<String> searchObserver = BehaviorSubject.create();
 
     @Inject
     @InjectPresenter
@@ -76,7 +72,7 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     public void onCreate(Bundle savedInstanceState) {
         ComponentManager
                 .getInstance()
-                .getSearchComponent()
+                .createSearchComponent()
                 .inject(this);
 
         super.onCreate(savedInstanceState);
@@ -95,6 +91,29 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         initSearchField(view);
         initSearchRecycler(view);
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof SearchFragmentListener) {
+            listener = (SearchFragmentListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        listener = null;
+        super.onDetach();
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.unRegister();
+        super.onDestroy();
     }
 
     private void initSearchField(View view) {
@@ -124,36 +143,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         searchRecyclerView.setAdapter(adapterRV);
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof SearchFragmentListener) {
-            listener = (SearchFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        listener = null;
-        super.onDetach();
-    }
-
-    @Override
-    public void onDestroy() {
-        presenter.unRegister();
-
-        ComponentManager
-                .getInstance()
-                .clearSearchComponent();
-        super.onDestroy();
-
-        Log.d("afhjabvhj", "onDestroy() called");
-    }
-
     @Override
     public void onItemClick(int idFilm) {
         listener.itemClick(idFilm);
@@ -161,7 +150,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
     @Override
     public void loadMore() {
-
     }
 
     @Override

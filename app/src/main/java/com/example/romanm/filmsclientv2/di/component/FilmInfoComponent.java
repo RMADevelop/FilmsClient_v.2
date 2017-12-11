@@ -17,6 +17,4 @@ public interface FilmInfoComponent {
     void inject(FilmDetailFragment filmDetailFragment);
 
     BaseInfoComponent plusBaseInfoComponent();
-
-
 }

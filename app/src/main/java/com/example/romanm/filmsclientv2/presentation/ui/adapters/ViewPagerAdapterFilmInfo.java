@@ -23,7 +23,6 @@ public class ViewPagerAdapterFilmInfo extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("testsfafad", "adapter " + film.getTitle());
         return BaseInfoFragment.newInstance(film);
     }
 
@@ -47,8 +46,6 @@ public class ViewPagerAdapterFilmInfo extends FragmentPagerAdapter {
     }
 
     public void setFilm(FilmDetailPresentation film) {
-        Log.d("testsfafad", "setFilmInfo " + film.getTitle());
-
         this.film = film;
     }
 }

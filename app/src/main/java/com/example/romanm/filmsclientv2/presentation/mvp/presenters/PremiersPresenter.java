@@ -31,6 +31,8 @@ public class PremiersPresenter extends MvpPresenter<PremiersView>{
 
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    private boolean isLoad;
+
 
     @Inject
     public PremiersPresenter(PremiersInteractor premiersInteractor, FilmMapperPresentation mapper, SchedulersManager schedulersManager) {
@@ -47,20 +49,24 @@ public class PremiersPresenter extends MvpPresenter<PremiersView>{
     }
 
     public void getPremiersFilms() {
-        compositeDisposable.add(premiersInteractor.loadPopular()
-                .map(mapper::transform)
-                .observeOn(schedulersManager.getMainThread())
-                .subscribeWith(new DisposableSingleObserver<List<FilmPresentation>>() {
-                    @Override
-                    public void onSuccess(List<FilmPresentation> results) {
-                        getViewState().showPopulars(results);
-                    }
+        if (!isLoad) {
+            isLoad = true;
+            compositeDisposable.add(premiersInteractor.loadPopular()
+                    .map(mapper::transform)
+                    .doOnSuccess(filmPresentations -> isLoad = false)
+                    .observeOn(schedulersManager.getMainThread())
+                    .subscribeWith(new DisposableSingleObserver<List<FilmPresentation>>() {
+                        @Override
+                        public void onSuccess(List<FilmPresentation> results) {
+                            getViewState().showPopulars(results);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-                }));
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    }));
+        }
     }
 
     @Override
