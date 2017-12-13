@@ -3,6 +3,7 @@ package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.di.scopes.SearchScope;
+import com.example.romanm.filmsclientv2.domain.exception.NoNetworkException;
 import com.example.romanm.filmsclientv2.domain.interactors.search.SearchInteractor;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmMapperPresentation;
@@ -57,7 +58,11 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        if (e instanceof NoNetworkException) {
+                            // error on view
+                        } else {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

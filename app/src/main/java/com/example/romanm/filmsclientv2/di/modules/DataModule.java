@@ -6,11 +6,14 @@ import android.content.Context;
 import com.example.romanm.filmsclientv2.data.source.local.LocalDataRoom;
 import com.example.romanm.filmsclientv2.data.source.local.LocalRoomDAO;
 import com.example.romanm.filmsclientv2.data.source.remote.Server;
+import com.example.romanm.filmsclientv2.domain.exception.NoNetworkException;
+import com.example.romanm.filmsclientv2.utils.NetworkChecker;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,8 +32,19 @@ public class DataModule {
 
     @Singleton
     @Provides
-    Retrofit provideRetrofit() {
+    Retrofit provideRetrofit(NetworkChecker networkChecker) {
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.addInterceptor(chain -> {
+            if (networkChecker.isConnected()) {
+                return chain.proceed(chain.request());
+            } else {
+                throw new NoNetworkException();
+            }
+        });
+
         return new Retrofit.Builder()
+                .client(builder.build())
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

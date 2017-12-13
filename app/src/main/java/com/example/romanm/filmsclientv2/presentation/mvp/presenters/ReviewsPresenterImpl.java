@@ -3,6 +3,7 @@ package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Reviews;
+import com.example.romanm.filmsclientv2.domain.exception.NoNetworkException;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.ReviewsView;
 import com.example.romanm.filmsclientv2.repository.Repository;
 
@@ -45,7 +46,11 @@ public class ReviewsPresenterImpl extends MvpPresenter<ReviewsView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        if (e instanceof NoNetworkException) {
+                            // error on view
+                        } else {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
