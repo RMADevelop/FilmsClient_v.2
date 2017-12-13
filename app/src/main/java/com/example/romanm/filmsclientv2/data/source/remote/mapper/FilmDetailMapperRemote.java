@@ -2,7 +2,6 @@ package com.example.romanm.filmsclientv2.data.source.remote.mapper;
 
 import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
 import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
-import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
  */
 
 public class FilmDetailMapperRemote {
+
     @Inject
     public FilmDetailMapperRemote() {
     }

@@ -27,27 +27,15 @@ import javax.inject.Inject;
 
 public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfoView {
 
+    private static final String ARG_ID_FILM = "EXTRA_ID_FILM";
     @Inject
     @InjectPresenter
     FilmInfoPresenter filmInfoPresenter;
-
-    @ProvidePresenter
-    FilmInfoPresenter provideFilmInfoPresenter() {
-        return filmInfoPresenter;
-    }
-
-    private static final String ARG_ID_FILM = "EXTRA_ID_FILM";
-
     private int idFilm;
-
     private ImageView imagePoster;
-
     private Toolbar toolbar;
-
     private TabLayout tabLayout;
-
     private ViewPager viewPager;
-
     private ViewPagerAdapterFilmInfo pagerAdapterFilmInfo;
 
     public FilmDetailFragment() {
@@ -60,6 +48,11 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         args.putInt(ARG_ID_FILM, idFilm);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @ProvidePresenter
+    FilmInfoPresenter provideFilmInfoPresenter() {
+        return filmInfoPresenter;
     }
 
     @Override

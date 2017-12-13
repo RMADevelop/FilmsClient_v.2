@@ -1,7 +1,6 @@
 package com.example.romanm.filmsclientv2.utils;
 
 
-
 public class Const {
 
 

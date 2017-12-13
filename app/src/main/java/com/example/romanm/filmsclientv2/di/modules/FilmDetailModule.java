@@ -17,6 +17,5 @@ public abstract class FilmDetailModule {
 
     @FilmInfoScope
     @Binds
-    public abstract FilmInfoInteractor provideFilmInfoInteractor (FilmInfoInteractorImpl filmInfoInteractor);
-
+    public abstract FilmInfoInteractor provideFilmInfoInteractor(FilmInfoInteractorImpl filmInfoInteractor);
 }

@@ -36,28 +36,24 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     @Inject
     @InjectPresenter
     PremiersPresenter presenter;
-
-    @ProvidePresenter
-    PremiersPresenter providePresenter() {
-        return presenter;
-    }
-
     PremiersFragmentListener listener;
-
-    private Toolbar toolbar;
-
     PremiersAdapterRV adapter;
+    private Toolbar toolbar;
 
     public PremiersFragment() {
         // Required empty public constructor
     }
-
 
     public static PremiersFragment getInstance() {
         Bundle bundle = new Bundle();
         PremiersFragment fragment = new PremiersFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @ProvidePresenter
+    PremiersPresenter providePresenter() {
+        return presenter;
     }
 
     @Override

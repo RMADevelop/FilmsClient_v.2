@@ -1,7 +1,6 @@
 package com.example.romanm.filmsclientv2.data.source.local.models.mapper;
 
 import com.example.romanm.filmsclientv2.data.source.local.models.FilmDetailLocal;
-import com.example.romanm.filmsclientv2.data.source.remote.models.filmDetail.FilmDetail;
 import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
 
 import java.util.ArrayList;

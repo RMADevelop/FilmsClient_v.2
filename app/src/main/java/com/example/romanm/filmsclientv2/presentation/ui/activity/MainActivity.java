@@ -1,6 +1,5 @@
 package com.example.romanm.filmsclientv2.presentation.ui.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.presentation.ui.fragments.BaseInfoFragment;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.FilmDetailFragment;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.PremiersFragment;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.SearchFragment;

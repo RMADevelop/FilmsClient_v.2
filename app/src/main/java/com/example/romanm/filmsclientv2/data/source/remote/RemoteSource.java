@@ -13,7 +13,6 @@ import io.reactivex.Single;
 
 public interface RemoteSource {
 
-
     Single<Movie> loadMoviesNowPlaying();
 
     Single<Movie> loadPopular(int id);
@@ -29,5 +28,4 @@ public interface RemoteSource {
     Single<Movie> loadRecommended(int id);
 
     Single<ReviewsWrapper> loadReviews(int idFilm);
-
 }

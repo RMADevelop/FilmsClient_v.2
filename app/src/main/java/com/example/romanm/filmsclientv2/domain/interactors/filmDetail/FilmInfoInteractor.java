@@ -11,5 +11,4 @@ import io.reactivex.Maybe;
 public interface FilmInfoInteractor {
 
     Maybe<FilmDetailDomain> getFilmDetail(int idFilm);
-
 }

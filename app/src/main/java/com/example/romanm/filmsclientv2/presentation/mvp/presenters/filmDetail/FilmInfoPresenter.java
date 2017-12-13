@@ -7,7 +7,6 @@ import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresent
 import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmDetailMapperPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
-import com.example.romanm.filmsclientv2.utils.Schedulers.AppSchedulers;
 
 import javax.inject.Inject;
 
@@ -31,13 +30,6 @@ public class FilmInfoPresenter extends MvpPresenter<FilmInfoView> {
         this.filmInfoInteractor = filmInfoInteractor;
         this.mapper = mapper;
         this.schedulersManager = schedulersManager;
-    }
-
-
-    @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
-
     }
 
     public void loadFilm(int idFilm) {

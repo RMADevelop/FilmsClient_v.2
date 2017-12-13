@@ -16,5 +16,4 @@ public abstract class SearchModule {
     @SearchScope
     @Binds
     public abstract SearchInteractor provideSearchInteractor(SearchInteractorImpl searchInteractor);
-
 }

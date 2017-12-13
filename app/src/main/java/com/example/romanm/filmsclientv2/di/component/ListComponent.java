@@ -12,5 +12,4 @@ import dagger.Subcomponent;
 public interface ListComponent {
 
     void inject(PremiersFragment premiersFragment);
-
 }

@@ -12,5 +12,4 @@ import java.util.List;
 public interface ReviewsView extends MvpView {
 
     void showReviews(List<Reviews> reviews);
-
 }

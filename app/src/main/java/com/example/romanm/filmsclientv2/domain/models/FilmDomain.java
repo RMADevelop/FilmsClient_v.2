@@ -1,10 +1,5 @@
 package com.example.romanm.filmsclientv2.domain.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
 /**
  * Created by RomanM on 22.11.2017.
  */

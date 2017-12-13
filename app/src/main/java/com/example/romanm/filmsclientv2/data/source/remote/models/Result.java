@@ -4,9 +4,6 @@ package com.example.romanm.filmsclientv2.data.source.remote.models;
  * Created by Roma on 17.09.2017.
  */
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -55,7 +52,6 @@ public class Result {
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
-
 
 
     public int getVoteCount() {

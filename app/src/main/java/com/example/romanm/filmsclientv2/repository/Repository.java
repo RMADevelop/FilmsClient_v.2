@@ -20,7 +20,6 @@ import javax.inject.Singleton;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 
 /**
  * Created by Roma on 09.09.2017.

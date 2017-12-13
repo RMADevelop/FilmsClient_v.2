@@ -4,7 +4,6 @@ import com.example.romanm.filmsclientv2.di.scopes.FilmInfoScope;
 import com.example.romanm.filmsclientv2.domain.models.FilmDetailDomain;
 import com.example.romanm.filmsclientv2.repository.Repository;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
-import com.example.romanm.filmsclientv2.utils.Schedulers.AppSchedulers;
 
 import javax.inject.Inject;
 
@@ -32,6 +31,4 @@ public class FilmInfoInteractorImpl implements FilmInfoInteractor {
         return repository.getFilmInfo(idFilm)
                 .subscribeOn(schedulersManager.getIo());
     }
-
-
 }

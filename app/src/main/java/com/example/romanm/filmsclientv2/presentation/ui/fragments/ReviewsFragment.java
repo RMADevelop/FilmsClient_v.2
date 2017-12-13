@@ -53,7 +53,7 @@ public class ReviewsFragment extends Fragment {
     }
 
     private void initRecyclerView(View view) {
-        recyclerView = (RecyclerView ) view.findViewById(R.id.recycler_view_reviews);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_reviews);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

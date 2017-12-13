@@ -46,7 +46,7 @@ public class DataModule {
     @Singleton
     @Provides
     LocalDataRoom provideDatabase(Context context) {
-        return Room.databaseBuilder(context, LocalDataRoom.class,"database").build();
+        return Room.databaseBuilder(context, LocalDataRoom.class, "database").build();
     }
 
     @Singleton

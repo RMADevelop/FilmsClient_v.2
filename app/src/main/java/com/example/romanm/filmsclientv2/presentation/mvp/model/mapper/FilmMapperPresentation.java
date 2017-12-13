@@ -1,6 +1,5 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.model.mapper;
 
-import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 import com.example.romanm.filmsclientv2.domain.models.FilmDomain;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 

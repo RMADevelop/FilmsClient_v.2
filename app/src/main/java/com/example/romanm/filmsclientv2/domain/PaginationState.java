@@ -8,11 +8,9 @@ import javax.inject.Inject;
 
 public class PaginationState {
 
-    private int page = 1;
-
-    private int index;
-
     private final int limit = 20;
+    private int page = 1;
+    private int index;
 
     @Inject
     public PaginationState() {

@@ -14,7 +14,6 @@ import io.reactivex.Single;
 @Singleton
 public class Remote implements RemoteSource {
 
-
     private Server server;
 
     @Inject
@@ -62,5 +61,4 @@ public class Remote implements RemoteSource {
     public Single<ReviewsWrapper> loadReviews(int idFilm) {
         return server.getReviews(idFilm);
     }
-
 }

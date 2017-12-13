@@ -7,7 +7,6 @@ import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmMapperPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.PremiersView;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
-import com.example.romanm.filmsclientv2.utils.Schedulers.AppSchedulers;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import io.reactivex.observers.DisposableSingleObserver;
  */
 
 @InjectViewState
-public class PremiersPresenter extends MvpPresenter<PremiersView>{
+public class PremiersPresenter extends MvpPresenter<PremiersView> {
 
     private PremiersInteractor premiersInteractor;
 
@@ -33,14 +32,12 @@ public class PremiersPresenter extends MvpPresenter<PremiersView>{
 
     private boolean isLoad;
 
-
     @Inject
     public PremiersPresenter(PremiersInteractor premiersInteractor, FilmMapperPresentation mapper, SchedulersManager schedulersManager) {
         this.premiersInteractor = premiersInteractor;
         this.mapper = mapper;
         this.schedulersManager = schedulersManager;
     }
-
 
     @Override
     protected void onFirstViewAttach() {

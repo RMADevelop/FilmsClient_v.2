@@ -34,17 +34,16 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
 
     private static final String ARG_ANIM = "animation";
-
+    @Inject
+    @InjectPresenter
+    SearchPresenter presenter;
     private boolean isAnim;
-
     private SearchFragmentListener listener;
     private RecyclerView searchRecyclerView;
     private PremiersAdapterRV adapterRV;
-
     private ImageView back;
     private ImageView clear;
     private EditText searchEditText;
-
     private BehaviorSubject<String> searchObserver = BehaviorSubject.create();
 
     public SearchFragment() {
@@ -57,10 +56,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         fragment.setArguments(args);
         return fragment;
     }
-
-    @Inject
-    @InjectPresenter
-    SearchPresenter presenter;
 
     @ProvidePresenter
     SearchPresenter providePresenter() {

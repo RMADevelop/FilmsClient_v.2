@@ -9,7 +9,7 @@ import io.reactivex.Scheduler;
 public interface SchedulersManager {
 
 
-        Scheduler getIo();
+    Scheduler getIo();
 
-Scheduler getMainThread();
+    Scheduler getMainThread();
 }

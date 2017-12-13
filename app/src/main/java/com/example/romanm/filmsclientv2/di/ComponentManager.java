@@ -1,7 +1,6 @@
 package com.example.romanm.filmsclientv2.di;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.example.romanm.filmsclientv2.di.component.AppComponent;
 import com.example.romanm.filmsclientv2.di.component.DaggerAppComponent;
@@ -23,14 +22,14 @@ public class ComponentManager {
 
     private AppComponent appComponent;
 
+    private ComponentManager() {
+    }
+
     public static ComponentManager getInstance() {
         if (instance == null) {
             instance = new ComponentManager();
         }
         return instance;
-    }
-
-    private ComponentManager() {
     }
 
     public void initComponentManager(Application application) {

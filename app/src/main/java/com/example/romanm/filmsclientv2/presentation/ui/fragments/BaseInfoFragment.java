@@ -1,7 +1,5 @@
 package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,20 +28,10 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
     @Inject
     @InjectPresenter
     BaseInfoPresenter presenter;
-
-    @ProvidePresenter
-    BaseInfoPresenter providePresenter() {
-        return presenter;
-    }
-
     private ImageView poster;
-
     private TextView title;
-
     private TextView description;
-
     private TextView date;
-
     private FilmDetailPresentation film;
 
     public BaseInfoFragment() {
@@ -56,6 +44,11 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
         args.putParcelable(ARG_FILM, filmDetailPresentation);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @ProvidePresenter
+    BaseInfoPresenter providePresenter() {
+        return presenter;
     }
 
     @Override

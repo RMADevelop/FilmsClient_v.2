@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.romanm.filmsclientv2.R;
-import com.example.romanm.filmsclientv2.data.source.remote.models.Result;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
 import com.example.romanm.filmsclientv2.utils.Api;
 
@@ -79,6 +78,31 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
         return itemCount;
     }
 
+    public void setMovies(List<FilmPresentation> movies) {
+
+        list.addAll(movies);
+
+        notifyItemRangeChanged(list.size() - 20, list.size());
+    }
+
+    public void setSearchMovies(List<FilmPresentation> movies) {
+        list.clear();
+        list.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+    public interface PremiersAdapterListener {
+        void onItemClick(int idFilm);
+
+        void loadMore();
+    }
+
+    static class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
     public class ViewHolderMainScreen extends RecyclerView.ViewHolder {
         public ImageView poster;
         public TextView tittle;
@@ -120,31 +144,5 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
             Log.v("itemMovie", item.getTitle());
 
         }
-    }
-
-    static class FooterViewHolder extends RecyclerView.ViewHolder {
-        public FooterViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public void setMovies(List<FilmPresentation> movies) {
-
-        list.addAll(movies);
-
-        notifyItemRangeChanged(list.size() - 20, list.size());
-    }
-
-    public void setSearchMovies(List<FilmPresentation> movies) {
-        list.clear();
-        list.addAll(movies);
-        notifyDataSetChanged();
-    }
-
-
-    public interface PremiersAdapterListener {
-        void onItemClick(int idFilm);
-
-        void loadMore();
     }
 }

@@ -11,6 +11,5 @@ import java.util.List;
 
 public interface SearchView extends MvpView {
 
-
     void setFilms(List<FilmPresentation> list);
 }

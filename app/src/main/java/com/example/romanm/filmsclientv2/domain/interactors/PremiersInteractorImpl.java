@@ -17,13 +17,12 @@ import io.reactivex.Single;
 
 public class PremiersInteractorImpl implements PremiersInteractor {
 
-
     private final Repository repository;
 
     private final SchedulersManager schedulersManager;
 
     private final PaginationState paginationState;
-    
+
     @Inject
     public PremiersInteractorImpl(Repository repository, SchedulersManager schedulersManager, PaginationState paginationState) {
         this.repository = repository;
@@ -31,14 +30,10 @@ public class PremiersInteractorImpl implements PremiersInteractor {
         this.paginationState = paginationState;
     }
 
-
-
     @Override
     public Single<List<FilmDomain>> loadPopular() {
         return repository.loadPopular(paginationState.getPage())
-                .doOnSuccess(movie ->paginationState.nextPage())
+                .doOnSuccess(movie -> paginationState.nextPage())
                 .subscribeOn(schedulersManager.getIo());
     }
-
-
 }

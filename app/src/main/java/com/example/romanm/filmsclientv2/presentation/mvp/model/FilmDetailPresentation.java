@@ -7,8 +7,19 @@ import android.os.Parcelable;
  * Created by RomanM on 21.11.2017.
  */
 
-public class FilmDetailPresentation implements Parcelable{
+public class FilmDetailPresentation implements Parcelable {
 
+    public static final Creator<FilmDetailPresentation> CREATOR = new Creator<FilmDetailPresentation>() {
+        @Override
+        public FilmDetailPresentation createFromParcel(Parcel in) {
+            return new FilmDetailPresentation(in);
+        }
+
+        @Override
+        public FilmDetailPresentation[] newArray(int size) {
+            return new FilmDetailPresentation[size];
+        }
+    };
     private String backdropPath;
     private int budget;
     private int id;
@@ -31,18 +42,6 @@ public class FilmDetailPresentation implements Parcelable{
         title = in.readString();
         voteAverage = in.readFloat();
     }
-
-    public static final Creator<FilmDetailPresentation> CREATOR = new Creator<FilmDetailPresentation>() {
-        @Override
-        public FilmDetailPresentation createFromParcel(Parcel in) {
-            return new FilmDetailPresentation(in);
-        }
-
-        @Override
-        public FilmDetailPresentation[] newArray(int size) {
-            return new FilmDetailPresentation[size];
-        }
-    };
 
     public String getBackdropPath() {
         return backdropPath;

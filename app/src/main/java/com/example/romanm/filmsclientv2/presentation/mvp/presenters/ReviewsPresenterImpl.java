@@ -2,9 +2,9 @@ package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.example.romanm.filmsclientv2.repository.Repository;
-import com.example.romanm.filmsclientv2.presentation.mvp.views.ReviewsView;
 import com.example.romanm.filmsclientv2.data.source.remote.models.Reviews;
+import com.example.romanm.filmsclientv2.presentation.mvp.views.ReviewsView;
+import com.example.romanm.filmsclientv2.repository.Repository;
 
 import java.util.List;
 
@@ -20,6 +20,9 @@ import io.reactivex.schedulers.Schedulers;
  */
 @InjectViewState
 public class ReviewsPresenterImpl extends MvpPresenter<ReviewsView> {
+
+
+    //TODO
 
     @Inject
     Repository repository;

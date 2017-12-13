@@ -16,17 +16,16 @@ import io.reactivex.Single;
  */
 @SearchScope
 public class SearchInteractorImpl implements SearchInteractor {
+
     private final Repository repository;
 
     private final SchedulersManager schedulersManager;
-
 
     @Inject
     public SearchInteractorImpl(Repository repository, SchedulersManager schedulersManager) {
         this.repository = repository;
         this.schedulersManager = schedulersManager;
     }
-
 
     @Override
     public Single<List<FilmDomain>> getSearchFilms(String query, int page) {

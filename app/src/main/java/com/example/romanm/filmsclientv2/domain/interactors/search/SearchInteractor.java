@@ -13,5 +13,4 @@ import io.reactivex.Single;
 public interface SearchInteractor {
 
     Single<List<FilmDomain>> getSearchFilms(String query, int page);
-
 }
