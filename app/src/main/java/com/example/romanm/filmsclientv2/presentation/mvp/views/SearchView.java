@@ -12,4 +12,8 @@ import java.util.List;
 public interface SearchView extends MvpView {
 
     void setFilms(List<FilmPresentation> list);
+
+    void setStateClearButton(boolean state);
+
+    void setStateSearchEditText(boolean state);
 }

@@ -117,7 +117,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private void initRV(View view) {
         RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv_premiers);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        adapter = new PremiersAdapterRV(getContext(), Collections.<FilmPresentation>emptyList(), this);
+        adapter = new PremiersAdapterRV(getContext(), PremiersAdapterRV.PREMIERS, Collections.<FilmPresentation>emptyList(), this);
         rv.setAdapter(adapter);
     }
 

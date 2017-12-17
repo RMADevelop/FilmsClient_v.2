@@ -22,26 +22,35 @@ import java.util.List;
 
 public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    public static final int SEARCH = 0;
+    public static final int PREMIERS = 1;
+
     private final static int TYPE_ITEM = 0;
     private final static int TYPE_FOOTER = 1;
 
-    private List<FilmPresentation> list = new ArrayList<>();
+    private PremiersAdapterListener listener;
     private Context context;
 
-    private PremiersAdapterListener listener;
+    private List<FilmPresentation> list = new ArrayList<>();
+    private int state;
 
 
-    public PremiersAdapterRV(Context context, List<FilmPresentation> movies, PremiersAdapterListener listener) {
+    public PremiersAdapterRV(Context context, int state, List<FilmPresentation> movies, PremiersAdapterListener listener) {
         this.context = context;
         this.listener = listener;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == getItemCount() - 1) {
-            return TYPE_FOOTER;
+        if (state == PREMIERS) {
+            if (position == getItemCount() - 1) {
+                return TYPE_FOOTER;
+            }
+            return TYPE_ITEM;
+        } else {
+            return TYPE_ITEM;
         }
-        return TYPE_ITEM;
+
     }
 
     @Override
@@ -71,17 +80,18 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemCount() {
         int itemCount = list.size();
-
-        //footer
-        itemCount++;
-
-        return itemCount;
+        if (state == PREMIERS) {
+            //footer
+            itemCount++;
+            return itemCount;
+        } else {
+            return itemCount;
+        }
     }
 
     public void setMovies(List<FilmPresentation> movies) {
 
         list.addAll(movies);
-
         notifyItemRangeChanged(list.size() - 20, list.size());
     }
 

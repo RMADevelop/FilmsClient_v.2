@@ -73,6 +73,11 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 
     }
 
+    public void setStateContinue(boolean state) {
+        getViewState().setStateClearButton(state);
+        getViewState().setStateSearchEditText(state);
+    }
+
     public void unRegister() {
         compositeDisposable.dispose();
     }
