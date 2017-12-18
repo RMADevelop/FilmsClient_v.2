@@ -25,9 +25,6 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
 
     private static final String ARG_FILM = "ARG_FILM";
 
-    @Inject
-    @InjectPresenter
-    BaseInfoPresenter presenter;
     private ImageView poster;
     private TextView title;
     private TextView description;
@@ -44,11 +41,6 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
         args.putParcelable(ARG_FILM, filmDetailPresentation);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @ProvidePresenter
-    BaseInfoPresenter providePresenter() {
-        return presenter;
     }
 
     @Override
@@ -85,7 +77,5 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(poster);
-
-
     }
 }

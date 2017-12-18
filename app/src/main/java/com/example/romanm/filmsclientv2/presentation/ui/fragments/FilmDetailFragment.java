@@ -28,9 +28,7 @@ import javax.inject.Inject;
 public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfoView {
 
     private static final String ARG_ID_FILM = "EXTRA_ID_FILM";
-    @Inject
-    @InjectPresenter
-    FilmInfoPresenter filmInfoPresenter;
+
     private int idFilm;
     private ImageView imagePoster;
     private Toolbar toolbar;
@@ -50,17 +48,18 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         return fragment;
     }
 
+    @InjectPresenter
+    FilmInfoPresenter filmInfoPresenter;
+
     @ProvidePresenter
     FilmInfoPresenter provideFilmInfoPresenter() {
-        return filmInfoPresenter;
+        return ComponentManager.getInstance()
+                .getFilmInfoComponent()
+                .getPresenter();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ComponentManager
-                .getInstance()
-                .getFilmInfoComponent()
-                .inject(this);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             idFilm = getArguments().getInt(ARG_ID_FILM);
