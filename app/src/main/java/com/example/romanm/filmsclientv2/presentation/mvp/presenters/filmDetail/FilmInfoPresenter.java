@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.domain.interactors.filmDetail.FilmInfoInteractor;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.mapper.FilmDetailMapperPresentation;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.BasePresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.utils.Schedulers.SchedulersManager;
 
@@ -15,15 +16,13 @@ import io.reactivex.observers.DisposableSingleObserver;
 
 
 @InjectViewState
-public class FilmInfoPresenter extends MvpPresenter<FilmInfoView> {
+public class FilmInfoPresenter extends BasePresenter<FilmInfoView> {
 
     private FilmInfoInteractor filmInfoInteractor;
 
     private FilmDetailMapperPresentation mapper;
 
     private SchedulersManager schedulersManager;
-
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public FilmInfoPresenter(FilmInfoInteractor filmInfoInteractor, FilmDetailMapperPresentation mapper, SchedulersManager schedulersManager) {
@@ -49,11 +48,5 @@ public class FilmInfoPresenter extends MvpPresenter<FilmInfoView> {
                         e.printStackTrace();
                     }
                 }));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        compositeDisposable.dispose();
     }
 }

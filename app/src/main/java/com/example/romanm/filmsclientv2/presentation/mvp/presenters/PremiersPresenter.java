@@ -21,15 +21,13 @@ import io.reactivex.observers.DisposableSingleObserver;
  */
 
 @InjectViewState
-public class PremiersPresenter extends MvpPresenter<PremiersView> {
+public class PremiersPresenter extends BasePresenter<PremiersView>{
 
     private PremiersInteractor premiersInteractor;
 
     private FilmMapperPresentation mapper;
 
     private SchedulersManager schedulersManager;
-
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private boolean isLoad;
 
@@ -69,11 +67,5 @@ public class PremiersPresenter extends MvpPresenter<PremiersView> {
                         }
                     }));
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        compositeDisposable.dispose();
     }
 }

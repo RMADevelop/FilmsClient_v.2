@@ -24,15 +24,13 @@ import io.reactivex.observers.DisposableObserver;
  */
 @SearchScope
 @InjectViewState
-public class SearchPresenter extends MvpPresenter<SearchView> {
+public class SearchPresenter extends BasePresenter<SearchView> {
 
     private final SearchInteractor searchInteractor;
 
     private final FilmMapperPresentation mapper;
 
     private final SchedulersManager schedulers;
-
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     public SearchPresenter(SearchInteractor searchInteractor, FilmMapperPresentation mapper, SchedulersManager schedulers) {

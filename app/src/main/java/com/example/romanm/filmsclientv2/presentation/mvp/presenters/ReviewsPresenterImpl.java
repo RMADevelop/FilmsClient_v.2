@@ -20,15 +20,14 @@ import io.reactivex.schedulers.Schedulers;
  * Created by RomanM on 29.10.2017.
  */
 @InjectViewState
-public class ReviewsPresenterImpl extends MvpPresenter<ReviewsView> {
+public class ReviewsPresenterImpl extends BasePresenter<ReviewsView> {
 
 
-    //TODO
+    //useless
 
     @Inject
     Repository repository;
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public ReviewsPresenterImpl() {
     }
