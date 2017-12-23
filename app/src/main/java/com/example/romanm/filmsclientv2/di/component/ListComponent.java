@@ -1,6 +1,7 @@
 package com.example.romanm.filmsclientv2.di.component;
 
 import com.example.romanm.filmsclientv2.di.modules.ListModule;
+import com.example.romanm.filmsclientv2.presentation.mvp.presenters.PremiersPresenter;
 import com.example.romanm.filmsclientv2.presentation.ui.fragments.PremiersFragment;
 
 import dagger.Subcomponent;
@@ -11,5 +12,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = ListModule.class)
 public interface ListComponent {
 
-    void inject(PremiersFragment premiersFragment);
+    PremiersPresenter getPresenter();
 }

@@ -26,14 +26,10 @@ import com.example.romanm.filmsclientv2.presentation.ui.adapters.PremiersAdapter
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import static android.content.ContentValues.TAG;
 
 public class PremiersFragment extends MvpAppCompatFragment implements PremiersView, PremiersAdapterRV.PremiersAdapterListener {
 
-
-    @Inject
     @InjectPresenter
     PremiersPresenter presenter;
     PremiersFragmentListener listener;
@@ -53,16 +49,9 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
 
     @ProvidePresenter
     PremiersPresenter providePresenter() {
-        return presenter;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        ComponentManager
-                .getInstance()
+        return ComponentManager.getInstance()
                 .createListComponent()
-                .inject(this);
-        super.onCreate(savedInstanceState);
+                .getPresenter();
     }
 
     @Override

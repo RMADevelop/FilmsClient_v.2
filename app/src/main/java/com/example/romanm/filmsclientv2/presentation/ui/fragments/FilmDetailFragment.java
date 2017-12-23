@@ -22,13 +22,12 @@ import com.example.romanm.filmsclientv2.presentation.mvp.views.FilmInfoView;
 import com.example.romanm.filmsclientv2.presentation.ui.adapters.ViewPagerAdapterFilmInfo;
 import com.example.romanm.filmsclientv2.utils.Api;
 
-import javax.inject.Inject;
-
 
 public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfoView {
 
     private static final String ARG_ID_FILM = "EXTRA_ID_FILM";
-
+    @InjectPresenter
+    FilmInfoPresenter filmInfoPresenter;
     private int idFilm;
     private ImageView imagePoster;
     private Toolbar toolbar;
@@ -47,9 +46,6 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
         fragment.setArguments(args);
         return fragment;
     }
-
-    @InjectPresenter
-    FilmInfoPresenter filmInfoPresenter;
 
     @ProvidePresenter
     FilmInfoPresenter provideFilmInfoPresenter() {

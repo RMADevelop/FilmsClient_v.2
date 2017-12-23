@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -26,8 +25,6 @@ import com.example.romanm.filmsclientv2.presentation.ui.adapters.PremiersAdapter
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import io.reactivex.subjects.BehaviorSubject;
 
 
@@ -36,7 +33,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
     private static final String ARG_ANIM = "animation";
 
-    @Inject
     @InjectPresenter
     SearchPresenter presenter;
 
@@ -63,16 +59,13 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
     @ProvidePresenter
     SearchPresenter providePresenter() {
-        return presenter;
+        return ComponentManager.getInstance()
+                .createSearchComponent()
+                .getPresenter();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ComponentManager
-                .getInstance()
-                .createSearchComponent()
-                .inject(this);
-
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             isAnim = getArguments().getBoolean(ARG_ANIM);
@@ -178,7 +171,7 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
             searchEditText.clearFocus();
 
             //
-           // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
