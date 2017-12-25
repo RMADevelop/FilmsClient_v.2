@@ -21,15 +21,14 @@ public class FilmDetailMapperPresentation {
     public FilmDetailPresentation transform(FilmDetailDomain filmDetailDomain) {
         FilmDetailPresentation filmDetail = null;
         if (filmDetailDomain != null) {
-            filmDetail = new FilmDetailPresentation();
-            filmDetail.setBackdropPath(filmDetailDomain.getBackdropPath());
-            filmDetail.setBudget(filmDetailDomain.getBudget());
-            filmDetail.setId(filmDetailDomain.getId());
-            filmDetail.setOverview(filmDetailDomain.getOverview());
-            filmDetail.setTitle(filmDetailDomain.getTitle());
-            filmDetail.setVoteAverage(filmDetailDomain.getVoteAverage());
-            filmDetail.setPosterPath(filmDetailDomain.getPosterPath());
-            filmDetail.setReleaseDate(filmDetailDomain.getReleaseDate());
+            filmDetail = FilmDetailPresentation.create(filmDetailDomain.getBackdropPath(),
+                    filmDetailDomain.getBudget(),
+                    filmDetailDomain.getId(),
+                    filmDetailDomain.getOverview(),
+                    filmDetailDomain.getPosterPath(),
+                    filmDetailDomain.getReleaseDate(),
+                    filmDetailDomain.getTitle(),
+                    filmDetailDomain.getVoteAverage());
         }
         return filmDetail;
     }

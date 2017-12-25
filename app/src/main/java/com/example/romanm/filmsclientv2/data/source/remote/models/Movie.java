@@ -12,19 +12,14 @@ import java.util.List;
 public class Movie {
 
     @SerializedName("results")
-    @Expose
     private List<Result> results = null;
     @SerializedName("page")
-    @Expose
     private int page;
     @SerializedName("total_results")
-    @Expose
     private int totalResults;
     @SerializedName("dates")
-    @Expose
     private Dates dates;
     @SerializedName("total_pages")
-    @Expose
     private int totalPages;
 
     public List<Result> getResults() {

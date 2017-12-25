@@ -16,4 +16,8 @@ public interface SearchView extends MvpView {
     void setStateClearButton(boolean state);
 
     void setStateSearchEditText(boolean state);
+
+    void setStateBackButton(boolean state);
+
+    void clearSearch();
 }

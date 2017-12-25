@@ -96,7 +96,7 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
     @Override
     public void setFilmInfo(FilmDetailPresentation film) {
         Glide.with(getContext())
-                .load(Api.getBackPoster(film.getBackdropPath()))
+                .load(Api.getBackPoster(film.backdropPath()))
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(imagePoster);

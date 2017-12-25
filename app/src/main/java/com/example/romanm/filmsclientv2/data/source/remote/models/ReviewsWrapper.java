@@ -11,19 +11,14 @@ import java.util.List;
 
 public class ReviewsWrapper {
     @SerializedName("id")
-    @Expose
     private Integer id;
     @SerializedName("page")
-    @Expose
     private Integer page;
     @SerializedName("results")
-    @Expose
     private List<Reviews> results = null;
     @SerializedName("total_pages")
-    @Expose
     private Integer totalPages;
     @SerializedName("total_results")
-    @Expose
     private Integer totalResults;
 
     public Integer getId() {

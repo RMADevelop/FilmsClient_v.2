@@ -94,6 +94,7 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
     private void initToolbar(View view) {
         toolbar = view.findViewById(R.id.toolbar_premiers);
         toolbar.inflateMenu(R.menu.main);
+        toolbar.setTitle(R.string.title_premiers);
         MenuItem search = toolbar.getMenu().findItem(R.id.menu_search_film);
 
         search.setOnMenuItemClickListener(menuItem -> {

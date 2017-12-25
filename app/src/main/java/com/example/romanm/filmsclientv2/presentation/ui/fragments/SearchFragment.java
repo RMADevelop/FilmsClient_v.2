@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     private EditText searchEditText;
     private BehaviorSubject<String> searchObserver = BehaviorSubject.create();
 
-    private boolean isAnim;
-
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -62,14 +61,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         return ComponentManager.getInstance()
                 .createSearchComponent()
                 .getPresenter();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            isAnim = getArguments().getBoolean(ARG_ANIM);
-        }
     }
 
     @Override
@@ -110,16 +101,21 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     private void initSearchField(View view) {
 
         initSearchEditText(view);
+        initSearchButtons(view);
 
     }
 
     private void initSearchButtons(View view) {
         clear = view.findViewById(R.id.image_clear);
         clear.setOnClickListener(view1 -> presenter.setStateContinue(false));
+
+        back = view.findViewById(R.id.image_back);
+        back.setOnClickListener(view1 -> presenter.clearButtonClick());
     }
 
     private void initSearchEditText(View view) {
         searchEditText = view.findViewById(R.id.text_search);
+//        searchEditText.requestFocus();
         searchEditText.setOnFocusChangeListener((view1, b) -> presenter.setStateContinue(b));
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -168,11 +164,22 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     @Override
     public void setStateSearchEditText(boolean state) {
         if (!state) {
-            searchEditText.clearFocus();
+//            searchEditText.requestFocus();
+//            searchEditText.clearFocus();
 
             //
             // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    @Override
+    public void setStateBackButton(boolean state) {
+        back.setVisibility(state ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @Override
+    public void clearSearch() {
+        searchEditText.clearFocus();
     }
 
     public interface SearchFragmentListener {

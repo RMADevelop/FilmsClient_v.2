@@ -1,6 +1,5 @@
 package com.example.romanm.filmsclientv2.data.source.remote.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -9,16 +8,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Reviews {
     @SerializedName("id")
-    @Expose
     private String id;
     @SerializedName("author")
-    @Expose
     private String author;
     @SerializedName("content")
-    @Expose
     private String content;
     @SerializedName("url")
-    @Expose
     private String url;
 
     public String getId() {

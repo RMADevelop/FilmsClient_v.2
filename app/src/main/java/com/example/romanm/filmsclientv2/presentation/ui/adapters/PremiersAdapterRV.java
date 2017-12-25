@@ -38,6 +38,7 @@ public class PremiersAdapterRV extends RecyclerView.Adapter<RecyclerView.ViewHol
     public PremiersAdapterRV(Context context, int state, List<FilmPresentation> movies, PremiersAdapterListener listener) {
         this.context = context;
         this.listener = listener;
+        this.state = state;
     }
 
     @Override

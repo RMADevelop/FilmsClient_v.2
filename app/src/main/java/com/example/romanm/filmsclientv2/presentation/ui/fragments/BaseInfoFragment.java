@@ -8,17 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
-import com.example.romanm.filmsclientv2.presentation.mvp.presenters.filmDetail.baseInfo.BaseInfoPresenter;
 import com.example.romanm.filmsclientv2.presentation.mvp.views.BaseInfoView;
 import com.example.romanm.filmsclientv2.utils.Api;
-
-import javax.inject.Inject;
 
 
 public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoView {
@@ -69,11 +64,11 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
 
     @Override
     public void setInfo(FilmDetailPresentation filmDetail) {
-        title.setText(filmDetail.getTitle());
-        description.setText(filmDetail.getOverview());
-        date.setText(filmDetail.getReleaseDate());
+        title.setText(filmDetail.title());
+        description.setText(filmDetail.overview());
+        date.setText(filmDetail.releaseDate());
         Glide.with(getContext())
-                .load(Api.getPathPoster(filmDetail.getPosterPath()))
+                .load(Api.getPathPoster(filmDetail.posterPath()))
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(poster);

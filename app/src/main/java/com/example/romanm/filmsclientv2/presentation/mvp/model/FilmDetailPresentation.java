@@ -1,126 +1,41 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.model;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.auto.value.AutoValue;
 
 /**
  * Created by RomanM on 21.11.2017.
  */
 
-public class FilmDetailPresentation implements Parcelable {
+@AutoValue
+public abstract class FilmDetailPresentation implements Parcelable {
 
-    public static final Creator<FilmDetailPresentation> CREATOR = new Creator<FilmDetailPresentation>() {
-        @Override
-        public FilmDetailPresentation createFromParcel(Parcel in) {
-            return new FilmDetailPresentation(in);
-        }
+    public static FilmDetailPresentation create(String backdropPath,
+                                                          int budget,
+                                                          int id,
+                                                          String overview,
+                                                          String posterPath,
+                                                          String releaseDate,
+                                                          String title,
+                                                          float voteAverage) {
+        return new AutoValue_FilmDetailPresentation(backdropPath,budget,id,overview,posterPath,releaseDate,title,voteAverage);
 
-        @Override
-        public FilmDetailPresentation[] newArray(int size) {
-            return new FilmDetailPresentation[size];
-        }
-    };
-    private String backdropPath;
-    private int budget;
-    private int id;
-    private String overview;
-    private String posterPath;
-    private String releaseDate;
-    private String title;
-    private float voteAverage;
-
-    public FilmDetailPresentation() {
     }
 
-    protected FilmDetailPresentation(Parcel in) {
-        backdropPath = in.readString();
-        budget = in.readInt();
-        id = in.readInt();
-        overview = in.readString();
-        posterPath = in.readString();
-        releaseDate = in.readString();
-        title = in.readString();
-        voteAverage = in.readFloat();
-    }
+    public abstract String backdropPath();
+    public abstract int budget();
 
-    public String getBackdropPath() {
-        return backdropPath;
-    }
+    public abstract int id();
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
-    }
+    public abstract String overview();
 
-    public int getBudget() {
-        return budget;
-    }
+    public abstract String posterPath();
 
-    public void setBudget(int budget) {
-        this.budget = budget;
-    }
+    public abstract String releaseDate();
 
-    public int getId() {
-        return id;
-    }
+    public abstract String title();
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public abstract float voteAverage();
 
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public float getVoteAverage() {
-        return voteAverage;
-    }
-
-    public void setVoteAverage(float voteAverage) {
-        this.voteAverage = voteAverage;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(backdropPath);
-        parcel.writeInt(budget);
-        parcel.writeInt(id);
-        parcel.writeString(overview);
-        parcel.writeString(posterPath);
-        parcel.writeString(releaseDate);
-        parcel.writeString(title);
-        parcel.writeFloat(voteAverage);
-    }
 }

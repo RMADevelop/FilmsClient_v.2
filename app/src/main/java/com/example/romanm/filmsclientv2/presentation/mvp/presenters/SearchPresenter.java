@@ -1,5 +1,7 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.di.scopes.SearchScope;
@@ -71,9 +73,16 @@ public class SearchPresenter extends BasePresenter<SearchView> {
 
     }
 
+    public void clearButtonClick(){
+        getViewState().clearSearch();
+    }
+
     public void setStateContinue(boolean state) {
+        Log.d("dfgsfgsf", "setStateContinue() called with: state = [" + state + "]");
         getViewState().setStateClearButton(state);
         getViewState().setStateSearchEditText(state);
+        Log.d("dfgsfgsf", "setStateContinue() called with: state = [" + state + "]");
+
     }
 
     public void unRegister() {
