@@ -1,7 +1,8 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.domain.exception.NoNetworkException;
 import com.example.romanm.filmsclientv2.domain.interactors.PremiersInteractor;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmPresentation;
@@ -13,7 +14,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableSingleObserver;
 
 /**
@@ -21,7 +21,7 @@ import io.reactivex.observers.DisposableSingleObserver;
  */
 
 @InjectViewState
-public class PremiersPresenter extends BasePresenter<PremiersView>{
+public class PremiersPresenter extends BasePresenter<PremiersView> {
 
     private PremiersInteractor premiersInteractor;
 
@@ -60,7 +60,8 @@ public class PremiersPresenter extends BasePresenter<PremiersView>{
                         @Override
                         public void onError(Throwable e) {
                             if (e instanceof NoNetworkException) {
-                                // error on view
+                                getViewState().noNetworkConnectioin();
+                                Log.d("hhgfghjhy", "onError() called with: e = [" + e + "]");
                             } else {
                                 e.printStackTrace();
                             }

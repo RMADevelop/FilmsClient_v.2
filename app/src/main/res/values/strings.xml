@@ -10,4 +10,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_premiers">Premiers</string>
     <string name="hint_edittext">Tap for search</string>
+    <string name="network_error">network error</string>
 </resources>

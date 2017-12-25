@@ -12,11 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.romanm.filmsclientv2.R;
 import com.example.romanm.filmsclientv2.presentation.mvp.model.FilmDetailPresentation;
-import com.example.romanm.filmsclientv2.presentation.mvp.views.BaseInfoView;
 import com.example.romanm.filmsclientv2.utils.Api;
 
 
-public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoView {
+public class BaseInfoFragment extends MvpAppCompatFragment {
 
     private static final String ARG_FILM = "ARG_FILM";
 
@@ -62,7 +61,6 @@ public class BaseInfoFragment extends MvpAppCompatFragment implements BaseInfoVi
         description = (TextView) view.findViewById(R.id.text_description_base_info);
     }
 
-    @Override
     public void setInfo(FilmDetailPresentation filmDetail) {
         title.setText(filmDetail.title());
         description.setText(filmDetail.overview());

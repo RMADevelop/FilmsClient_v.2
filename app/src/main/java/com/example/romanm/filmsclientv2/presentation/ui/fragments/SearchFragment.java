@@ -2,14 +2,17 @@ package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -32,7 +35,7 @@ import io.reactivex.subjects.BehaviorSubject;
 public class SearchFragment extends MvpAppCompatFragment implements SearchView, PremiersAdapterRV.PremiersAdapterListener {
 
 
-    private static final String ARG_ANIM = "animation";
+    private static final String BUNDLE_LAYOUT_MANAGER = "layout_manager";
 
     @InjectPresenter
     SearchPresenter presenter;
@@ -98,6 +101,22 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         super.onDestroy();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_LAYOUT_MANAGER, searchRecyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null){
+            Parcelable recyclerViewState= savedInstanceState.getParcelable(BUNDLE_LAYOUT_MANAGER);
+            searchRecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+        }
+
+    }
+
     private void initSearchField(View view) {
 
         initSearchEditText(view);
@@ -107,7 +126,7 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
     private void initSearchButtons(View view) {
         clear = view.findViewById(R.id.image_clear);
-        clear.setOnClickListener(view1 -> presenter.setStateContinue(false));
+        clear.setOnClickListener(view1 -> presenter.clearButtonClick());
 
         back = view.findViewById(R.id.image_back);
         back.setOnClickListener(view1 -> presenter.clearButtonClick());
@@ -115,8 +134,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
     private void initSearchEditText(View view) {
         searchEditText = view.findViewById(R.id.text_search);
-//        searchEditText.requestFocus();
-        searchEditText.setOnFocusChangeListener((view1, b) -> presenter.setStateContinue(b));
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -125,6 +142,7 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                clear.setVisibility(charSequence.toString().length() > 0 ? View.VISIBLE : View.INVISIBLE);
                 searchObserver.onNext(charSequence.toString());
             }
 
@@ -157,29 +175,16 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
     }
 
     @Override
-    public void setStateClearButton(boolean state) {
-        clear.setVisibility(state ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    @Override
-    public void setStateSearchEditText(boolean state) {
-        if (!state) {
-//            searchEditText.requestFocus();
-//            searchEditText.clearFocus();
-
-            //
-            // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    @Override
-    public void setStateBackButton(boolean state) {
-        back.setVisibility(state ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    @Override
     public void clearSearch() {
         searchEditText.clearFocus();
+        clear.setVisibility(View.INVISIBLE);
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @Override
+    public void noNetworkConnection() {
+        Snackbar.make(getView(), R.string.network_error, Snackbar.LENGTH_LONG).show();
     }
 
     public interface SearchFragmentListener {

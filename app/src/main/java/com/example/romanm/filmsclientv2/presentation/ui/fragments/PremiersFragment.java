@@ -2,6 +2,9 @@ package com.example.romanm.filmsclientv2.presentation.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,11 +33,14 @@ import static android.content.ContentValues.TAG;
 
 public class PremiersFragment extends MvpAppCompatFragment implements PremiersView, PremiersAdapterRV.PremiersAdapterListener {
 
+    private static final String BUNDLE_LAYOUT_MANAGER = "layout_manager";
+
     @InjectPresenter
     PremiersPresenter presenter;
     PremiersFragmentListener listener;
     PremiersAdapterRV adapter;
     private Toolbar toolbar;
+    private RecyclerView rv;
 
     public PremiersFragment() {
         // Required empty public constructor
@@ -90,6 +96,21 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         super.onDetach();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_LAYOUT_MANAGER, rv.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null){
+            Parcelable recyclerViewState= savedInstanceState.getParcelable(BUNDLE_LAYOUT_MANAGER);
+            rv.getLayoutManager().onRestoreInstanceState(recyclerViewState);
+        }
+
+    }
 
     private void initToolbar(View view) {
         toolbar = view.findViewById(R.id.toolbar_premiers);
@@ -116,6 +137,12 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         Log.d(TAG, "showPopulars() returned: " + films);
 
         adapter.setMovies(films);
+    }
+
+    @Override
+    public void noNetworkConnectioin() {
+
+        Snackbar.make(getView(), R.string.network_error, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

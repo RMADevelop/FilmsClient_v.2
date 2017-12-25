@@ -1,9 +1,6 @@
 package com.example.romanm.filmsclientv2.presentation.mvp.presenters;
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 import com.example.romanm.filmsclientv2.di.scopes.SearchScope;
 import com.example.romanm.filmsclientv2.domain.exception.NoNetworkException;
 import com.example.romanm.filmsclientv2.domain.interactors.search.SearchInteractor;
@@ -18,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 
 /**
@@ -59,7 +55,7 @@ public class SearchPresenter extends BasePresenter<SearchView> {
                     @Override
                     public void onError(Throwable e) {
                         if (e instanceof NoNetworkException) {
-                            // error on view
+                            getViewState().noNetworkConnection();
                         } else {
                             e.printStackTrace();
                         }
@@ -73,16 +69,8 @@ public class SearchPresenter extends BasePresenter<SearchView> {
 
     }
 
-    public void clearButtonClick(){
+    public void clearButtonClick() {
         getViewState().clearSearch();
-    }
-
-    public void setStateContinue(boolean state) {
-        Log.d("dfgsfgsf", "setStateContinue() called with: state = [" + state + "]");
-        getViewState().setStateClearButton(state);
-        getViewState().setStateSearchEditText(state);
-        Log.d("dfgsfgsf", "setStateContinue() called with: state = [" + state + "]");
-
     }
 
     public void unRegister() {

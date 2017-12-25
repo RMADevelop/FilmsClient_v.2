@@ -95,6 +95,7 @@ public class FilmDetailFragment extends MvpAppCompatFragment implements FilmInfo
 
     @Override
     public void setFilmInfo(FilmDetailPresentation film) {
+        toolbar.setTitle(film.title());
         Glide.with(getContext())
                 .load(Api.getBackPoster(film.backdropPath()))
                 .asBitmap()

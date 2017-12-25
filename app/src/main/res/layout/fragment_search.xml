@@ -20,6 +20,7 @@
                 android:layout_height="56dp" />
 
             <EditText
+                android:focusableInTouchMode="true"
                 android:hint="@string/hint_edittext"
                 android:id="@+id/text_search"
                 android:layout_width="0dp"

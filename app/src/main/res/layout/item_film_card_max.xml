@@ -16,6 +16,7 @@
         android:padding="8dp">
 
         <ImageView
+
             android:id="@+id/recycler_film_card_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
