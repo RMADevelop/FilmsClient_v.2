@@ -101,22 +101,6 @@ public class SearchFragment extends MvpAppCompatFragment implements SearchView, 
         super.onDestroy();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(BUNDLE_LAYOUT_MANAGER, searchRecyclerView.getLayoutManager().onSaveInstanceState());
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null){
-            Parcelable recyclerViewState= savedInstanceState.getParcelable(BUNDLE_LAYOUT_MANAGER);
-            searchRecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);
-        }
-
-    }
-
     private void initSearchField(View view) {
 
         initSearchEditText(view);

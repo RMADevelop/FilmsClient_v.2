@@ -96,22 +96,6 @@ public class PremiersFragment extends MvpAppCompatFragment implements PremiersVi
         super.onDetach();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(BUNDLE_LAYOUT_MANAGER, rv.getLayoutManager().onSaveInstanceState());
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null){
-            Parcelable recyclerViewState= savedInstanceState.getParcelable(BUNDLE_LAYOUT_MANAGER);
-            rv.getLayoutManager().onRestoreInstanceState(recyclerViewState);
-        }
-
-    }
-
     private void initToolbar(View view) {
         toolbar = view.findViewById(R.id.toolbar_premiers);
         toolbar.inflateMenu(R.menu.main);
